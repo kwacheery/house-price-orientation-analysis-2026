@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>城市房价预测与朝向溢价分析</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #0f766e;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+    }
+    main {
+      width: min(720px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; line-height: 1.4; }
+    .subtitle { margin: 0 0 24px; color: var(--muted); }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: #ccfbf1;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #f3f4f6;
+      font-size: 0.9em;
+    }
+    footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="badge">项目初始化</span>
+    <h1>城市房价预测与朝向溢价分析</h1>
+    <p class="subtitle">广州二手房 · 3 人组 · 《数据预处理》课程项目</p>
+
+    <p>当前为 <strong>GitHub Pages 静态占位页</strong>。完整可视化将在 W7 替换为真实数据图表与预测页面。</p>
+
+    <ul>
+      <li>主任务：预测房源单价（元/㎡）</li>
+      <li>分析主线：控制面积、区县、楼层、房龄后的朝向溢价</li>
+      <li>本地版：FastAPI + ECharts，答辩主用</li>
+      <li>静态版：预导出 JSON，在线预览/备份</li>
+    </ul>
+
+    <p>计划书与最新进度见仓库 <code>docs/PLAN.md</code>。</p>
+
+    <footer>静态页面不包含假数据；图表与指标将在真实采集、清洗、建模完成后生成。</footer>
+  </main>
+</body>
+</html>

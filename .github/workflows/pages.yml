@@ -1,0 +1,43 @@
+name: Deploy static site to GitHub Pages
+
+# 部署前提：
+# 1. 仓库 Settings → Pages → Build and deployment → Source 选择 "GitHub Actions"
+# 2. 免费账号通常要求仓库为 public
+# 3. web/frontend/ 下已有 index.html 与 data/*.json（由 scripts/export_static.py 生成并提交）
+# 4. 前端全部使用相对路径，适配 https://<user>.github.io/<repo>/ 子路径
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload frontend artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/frontend
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
