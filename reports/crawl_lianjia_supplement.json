@@ -1,0 +1,31 @@
+{
+  "source": "lianjia",
+  "started_at": "2026-11-10T11:17:59+08:00",
+  "finished_at": "2026-11-10T11:18:09+08:00",
+  "pages": 2,
+  "rows": 60,
+  "written": 60,
+  "duplicate": 0,
+  "blocked": false,
+  "block_reason": null,
+  "block_url": null,
+  "errors": [],
+  "targets": {
+    "天津": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://tj.lianjia.com/ershoufang/"
+    },
+    "武汉": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wh.lianjia.com/ershoufang/"
+    }
+  }
+}

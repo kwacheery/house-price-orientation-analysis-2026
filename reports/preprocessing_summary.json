@@ -1,0 +1,726 @@
+{
+  "generated_at": "2026-11-10T11:44:50+08:00",
+  "clean_version": "w2-v1",
+  "raw": {
+    "files": [
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\fang\\gz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\bj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\dg\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\fs\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\fz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\gl\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\gz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\hf\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\hui\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\hy\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\hz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\jh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\jn\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\jx\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\liuzhou\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\nb\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\nj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\nn\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\nt\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\qd\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\qy\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\sh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\su\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\sz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\tj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\wf\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\wh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\wx\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\wz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\xm\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\yt\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\zb\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\zh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\zj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\lianjia\\zs\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\bj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\cz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\dg\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\fs\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\fz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\gl\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\gz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\hf\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\hui\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\hy\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\hz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\jh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\jn\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\jx\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\liuzhou\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\mm\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\nb\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\nj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\nn\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\nt\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\qd\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\qy\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\sh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\su\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\sw\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\sz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\wf\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\wx\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\wz\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\xm\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\yt\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\zb\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\zh\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\zj\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\zq\\2026-11-10.jsonl",
+      "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\data\\raw\\beike\\zs\\2026-11-10.jsonl"
+    ],
+    "lines": 3326,
+    "duplicate_url": 0,
+    "rows": 3326
+  },
+  "rows": 3302,
+  "sources": {
+    "fang": 1251,
+    "lianjia": 1032,
+    "beike": 1019
+  },
+  "cities": 36,
+  "district_sources": {
+    "site": 2275,
+    "missing": 997,
+    "plate_map": 24,
+    "community_map": 6
+  },
+  "district_maps": {
+    "plate_map": 161,
+    "community_map": 587,
+    "plate_conflicts": 0,
+    "community_conflicts": 0,
+    "curated_added": 15
+  },
+  "summary": [
+    {
+      "step": "read_raw",
+      "rows_in": 3326,
+      "rows_removed": 0,
+      "rows_modified": 0,
+      "rows_out": 3326,
+      "note": "JSONL 读取并按 (source,url) 去重"
+    },
+    {
+      "step": "type_convert",
+      "rows_in": 3326,
+      "rows_removed": 0,
+      "rows_modified": 879,
+      "rows_out": 3326,
+      "note": "数值/布尔/文本类型转换"
+    },
+    {
+      "step": "drop_missing_target",
+      "rows_in": 3326,
+      "rows_removed": 0,
+      "rows_modified": 0,
+      "rows_out": 3326,
+      "note": "面积或总价缺失，单价无法重算"
+    },
+    {
+      "step": "orientation_standardize",
+      "rows_in": 3326,
+      "rows_removed": 0,
+      "rows_modified": 13,
+      "rows_out": 3326,
+      "note": "统一 8 方位 + 南北/东西，派生主朝向与标志位"
+    },
+    {
+      "step": "unit_price_recompute",
+      "rows_in": 3326,
+      "rows_removed": 0,
+      "rows_modified": 3220,
+      "rows_out": 3326,
+      "note": "按总价/面积重算，偏差 >5% 标记 suspect"
+    },
+    {
+      "step": "dedup_exact",
+      "rows_in": 3326,
+      "rows_removed": 0,
+      "rows_modified": 0,
+      "rows_out": 3326,
+      "note": "完全重复保留 crawl_time 最新"
+    },
+    {
+      "step": "dedup_business",
+      "rows_in": 3326,
+      "rows_removed": 24,
+      "rows_modified": 0,
+      "rows_out": 3302,
+      "note": "同站业务重复保留最新"
+    },
+    {
+      "step": "cross_source_dup",
+      "rows_in": 3302,
+      "rows_removed": 0,
+      "rows_modified": 5,
+      "rows_out": 3302,
+      "note": "跨平台重复标记，model_keep=0"
+    },
+    {
+      "step": "district_backfill",
+      "rows_in": 3302,
+      "rows_removed": 0,
+      "rows_modified": 30,
+      "rows_out": 3302,
+      "note": "site=2275, community_map=6, plate_map=24, missing=997"
+    },
+    {
+      "step": "fill_missing",
+      "rows_in": 3302,
+      "rows_removed": 0,
+      "rows_modified": 11912,
+      "rows_out": 3302,
+      "note": "类别字段设“未知”，数值缺失加标记，不 dropna/fillna(0)"
+    },
+    {
+      "step": "property_flags",
+      "rows_in": 3302,
+      "rows_removed": 0,
+      "rows_modified": 143,
+      "rows_out": 3302,
+      "note": "按标题/小区/建筑类型标记别墅类房源"
+    },
+    {
+      "step": "outlier_detection",
+      "rows_in": 3302,
+      "rows_removed": 0,
+      "rows_modified": 152,
+      "rows_out": 3302,
+      "note": "IQR + 规则标记，保留样本"
+    },
+    {
+      "step": "output",
+      "rows_in": 3302,
+      "rows_removed": 0,
+      "rows_modified": 0,
+      "rows_out": 3302,
+      "note": "写入 data\\processed\\clean.csv"
+    }
+  ],
+  "completeness": {
+    "source": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "source_id": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "city": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "city_code": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "district": {
+      "count": 2305,
+      "total": 3302,
+      "rate": 0.6981
+    },
+    "plate": {
+      "count": 3037,
+      "total": 3302,
+      "rate": 0.9197
+    },
+    "community": {
+      "count": 3152,
+      "total": 3302,
+      "rate": 0.9546
+    },
+    "title": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "url": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "layout": {
+      "count": 3168,
+      "total": 3302,
+      "rate": 0.9594
+    },
+    "rooms": {
+      "count": 3168,
+      "total": 3302,
+      "rate": 0.9594
+    },
+    "halls": {
+      "count": 3168,
+      "total": 3302,
+      "rate": 0.9594
+    },
+    "bathrooms": {
+      "count": 0,
+      "total": 3302,
+      "rate": 0.0
+    },
+    "area": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "orientation_raw": {
+      "count": 3289,
+      "total": 3302,
+      "rate": 0.9961
+    },
+    "orientation": {
+      "count": 3289,
+      "total": 3302,
+      "rate": 0.9961
+    },
+    "floor_raw": {
+      "count": 2372,
+      "total": 3302,
+      "rate": 0.7184
+    },
+    "floor_level": {
+      "count": 2372,
+      "total": 3302,
+      "rate": 0.7184
+    },
+    "total_floors": {
+      "count": 2372,
+      "total": 3302,
+      "rate": 0.7184
+    },
+    "build_year": {
+      "count": 666,
+      "total": 3302,
+      "rate": 0.2017
+    },
+    "decoration": {
+      "count": 789,
+      "total": 3302,
+      "rate": 0.2389
+    },
+    "elevator": {
+      "count": 0,
+      "total": 3302,
+      "rate": 0.0
+    },
+    "building_type": {
+      "count": 934,
+      "total": 3302,
+      "rate": 0.2829
+    },
+    "total_price": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "unit_price": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "unit_price_calc": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "unit_price_mismatch": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "page": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "list_url": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "crawl_time": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "district_source": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "unit_price_raw": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "unit_price_suspect": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "orientation_main": {
+      "count": 3289,
+      "total": 3302,
+      "rate": 0.9961
+    },
+    "is_south": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "is_south_north": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "orientation_count": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "orientation_missing": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "age": {
+      "count": 666,
+      "total": 3302,
+      "rate": 0.2017
+    },
+    "age_missing": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "floor_ratio": {
+      "count": 2372,
+      "total": 3302,
+      "rate": 0.7184
+    },
+    "is_villa": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "is_outlier": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "outlier_reason": {
+      "count": 152,
+      "total": 3302,
+      "rate": 0.046
+    },
+    "cross_source_dup": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "dup_of_url": {
+      "count": 5,
+      "total": 3302,
+      "rate": 0.0015
+    },
+    "model_keep": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    },
+    "clean_version": {
+      "count": 3302,
+      "total": 3302,
+      "rate": 1.0
+    }
+  },
+  "orientation_dist": {
+    "南": 1465,
+    "南北": 1071,
+    "东南": 302,
+    "北": 139,
+    "西南": 107,
+    "东": 80,
+    "东北": 58,
+    "西北": 29,
+    "西": 22,
+    "东西": 16,
+    "未知": 13
+  },
+  "orientation_main_dist": {
+    "南": 2536,
+    "东南": 302,
+    "北": 139,
+    "西南": 107,
+    "东": 96,
+    "东北": 58,
+    "西北": 29,
+    "西": 22,
+    "未知": 13
+  },
+  "unit_price_suspect": 43,
+  "villas": 143,
+  "unit_price_suspect_samples": [
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "帝景山庄",
+      "area": 300.0,
+      "total_price": 1200.0,
+      "unit_price_raw": 43981.0,
+      "unit_price": 40000.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264847482.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "华润天合别墅",
+      "area": 200.0,
+      "total_price": 800.0,
+      "unit_price_raw": 35937.0,
+      "unit_price": 40000.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264703315.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "龙湖首开天宸原著别墅",
+      "area": 230.0,
+      "total_price": 1000.0,
+      "unit_price_raw": 55555.0,
+      "unit_price": 43478.26,
+      "url": "https://gz.esf.fang.com/chushou/3_264689114.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "珠江别墅",
+      "area": 230.0,
+      "total_price": 2860.0,
+      "unit_price_raw": 81017.0,
+      "unit_price": 124347.83,
+      "url": "https://gz.esf.fang.com/chushou/3_512181168.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "华润天合别墅",
+      "area": 150.0,
+      "total_price": 630.0,
+      "unit_price_raw": 28190.0,
+      "unit_price": 42000.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264689104.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "宏城花园",
+      "area": 400.0,
+      "total_price": 5800.0,
+      "unit_price_raw": 182965.0,
+      "unit_price": 145000.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264818607.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "二沙岛新世界花园别墅",
+      "area": 110.0,
+      "total_price": 1500.0,
+      "unit_price_raw": 66964.0,
+      "unit_price": 136363.64,
+      "url": "https://gz.esf.fang.com/chushou/3_264829959.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "华发中央公园别墅",
+      "area": 300.0,
+      "total_price": 1300.0,
+      "unit_price_raw": 50000.0,
+      "unit_price": 43333.33,
+      "url": "https://gz.esf.fang.com/chushou/3_264819723.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "华发中央公园别墅",
+      "area": 400.0,
+      "total_price": 1000.0,
+      "unit_price_raw": 28571.0,
+      "unit_price": 25000.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264529138.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "华发中央公园别墅",
+      "area": 300.0,
+      "total_price": 860.0,
+      "unit_price_raw": 33076.0,
+      "unit_price": 28666.67,
+      "url": "https://gz.esf.fang.com/chushou/3_264529137.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "二沙岛新世界棕榈园别",
+      "area": 260.0,
+      "total_price": 2010.0,
+      "unit_price_raw": 89333.0,
+      "unit_price": 77307.69,
+      "url": "https://gz.esf.fang.com/chushou/3_264348541.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "二沙岛新世界棕榈园别",
+      "area": 150.0,
+      "total_price": 940.0,
+      "unit_price_raw": 41777.0,
+      "unit_price": 62666.67,
+      "url": "https://gz.esf.fang.com/chushou/3_264348483.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "琶洲壹号",
+      "area": 200.0,
+      "total_price": 4100.0,
+      "unit_price_raw": 60294.0,
+      "unit_price": 205000.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264850947.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "琶洲壹号",
+      "area": 100.0,
+      "total_price": 1845.0,
+      "unit_price_raw": 60599.0,
+      "unit_price": 184500.0,
+      "url": "https://gz.esf.fang.com/chushou/3_264850948.htm"
+    },
+    {
+      "source": "fang",
+      "city": "广州",
+      "community": "琶洲壹号",
+      "area": 500.0,
+      "total_price": 2846.0,
+      "unit_price_raw": 40670.0,
+      "unit_price": 56920.0,
+      "url": "https://gz.esf.fang.com/chushou/3_512391707.htm"
+    }
+  ],
+  "outliers": {
+    "rows": 152,
+    "rate": 0.046,
+    "reasons": {
+      "unit_price_iqr": 145,
+      "area_range": 5,
+      "total_price_range": 3
+    },
+    "iqr": {
+      "gz": [
+        14043.94,
+        46356.03,
+        -34424.19499999999,
+        94824.165
+      ],
+      "gz_sigma": [
+        -42290.35337607289,
+        108876.44382611103
+      ],
+      "districts": {
+        "天河区": [
+          40222.36,
+          70690.75749999999,
+          -5480.236249999987,
+          116393.35374999998
+        ],
+        "越秀区": [
+          41505.6025,
+          69231.3425,
+          -83.00749999999971,
+          110819.9525
+        ],
+        "荔湾区": [
+          30935.25,
+          43235.7,
+          12484.575000000004,
+          61686.37499999999
+        ],
+        "海珠区": [
+          35884.975,
+          64287.78,
+          -6719.2325000000055,
+          106891.9875
+        ],
+        "白云区": [
+          12343.289999999999,
+          42117.09,
+          -32317.409999999996,
+          86777.79
+        ],
+        "番禺区": [
+          22559.309999999998,
+          53868.96,
+          -24405.165000000008,
+          100833.435
+        ],
+        "黄埔区": [
+          18343.38,
+          28768.482500000002,
+          2705.7262499999997,
+          44406.13625
+        ],
+        "花都区": [
+          9967.43,
+          15314.9875,
+          1946.0937500000018,
+          23336.323749999996
+        ],
+        "南沙区": [
+          13840.83,
+          19832.01,
+          4854.060000000003,
+          28818.779999999995
+        ],
+        "从化区": [
+          6592.44,
+          12588.12,
+          -2401.0800000000027,
+          21581.640000000003
+        ],
+        "增城区": [
+          9569.05,
+          17848.262499999997,
+          -2849.7687499999975,
+          30267.081249999996
+        ]
+      }
+    }
+  },
+  "cross_source_dup": 5,
+  "model_keep": 3297,
+  "missing": {
+    "orientation": 13,
+    "build_year": 2636,
+    "decoration": 2513,
+    "elevator": 3302,
+    "floor": 930
+  }
+}

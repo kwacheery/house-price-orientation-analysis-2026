@@ -1,0 +1,14 @@
+﻿step,rows_in,rows_removed,rows_modified,rows_out,note
+read_raw,3326,0,0,3326,"JSONL 读取并按 (source,url) 去重"
+type_convert,3326,0,879,3326,数值/布尔/文本类型转换
+drop_missing_target,3326,0,0,3326,面积或总价缺失，单价无法重算
+orientation_standardize,3326,0,13,3326,统一 8 方位 + 南北/东西，派生主朝向与标志位
+unit_price_recompute,3326,0,3220,3326,按总价/面积重算，偏差 >5% 标记 suspect
+dedup_exact,3326,0,0,3326,完全重复保留 crawl_time 最新
+dedup_business,3326,24,0,3302,同站业务重复保留最新
+cross_source_dup,3302,0,5,3302,跨平台重复标记，model_keep=0
+district_backfill,3302,0,30,3302,"site=2275, community_map=6, plate_map=24, missing=997"
+fill_missing,3302,0,11912,3302,类别字段设“未知”，数值缺失加标记，不 dropna/fillna(0)
+property_flags,3302,0,143,3302,按标题/小区/建筑类型标记别墅类房源
+outlier_detection,3302,0,152,3302,IQR + 规则标记，保留样本
+output,3302,0,0,3302,写入 data\processed\clean.csv

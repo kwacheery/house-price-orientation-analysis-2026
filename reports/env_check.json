@@ -1,0 +1,287 @@
+{
+  "checked_at": "2026-11-10T10:27:23",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "project_root": "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork",
+  "summary": {
+    "passed": 39,
+    "failed": 0,
+    "skipped": 0
+  },
+  "checks": [
+    {
+      "name": "Python 版本",
+      "status": "通过",
+      "detail": "3.14.5，venv=C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\.venv",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 .github/workflows",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 config",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 crawler",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 data/db",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 data/processed",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 data/raw",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 data/samples",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 docs",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 models",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 models/artifacts",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 notebooks",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 pipeline",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 reports",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 reports/figures",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 scripts",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 tests",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 web/backend",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 web/frontend",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "目录 web/frontend/data",
+      "status": "通过",
+      "detail": "存在",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 numpy",
+      "status": "通过",
+      "detail": "数值计算：2.5.4",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 pandas",
+      "status": "通过",
+      "detail": "数据处理：3.1.1",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 scipy",
+      "status": "通过",
+      "detail": "统计计算：1.18.1",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 scikit-learn",
+      "status": "通过",
+      "detail": "建模：1.9.1",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 statsmodels",
+      "status": "通过",
+      "detail": "回归与溢价分析：0.15.0",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 joblib",
+      "status": "通过",
+      "detail": "模型持久化：1.6.0",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 requests",
+      "status": "通过",
+      "detail": "HTTP 采集：2.34.2",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 beautifulsoup4",
+      "status": "通过",
+      "detail": "HTML 解析：4.15.0",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 lxml",
+      "status": "通过",
+      "detail": "HTML 解析后端：6.1.3",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 playwright",
+      "status": "通过",
+      "detail": "动态页面采集：1.65.0",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 fastapi",
+      "status": "通过",
+      "detail": "Web 后端：0.162.2",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 uvicorn",
+      "status": "通过",
+      "detail": "Web 服务：0.54.0",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 matplotlib",
+      "status": "通过",
+      "detail": "图表：3.11.2",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 PyYAML",
+      "status": "通过",
+      "detail": "配置文件：6.0.3",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 pytest",
+      "status": "通过",
+      "detail": "单元测试：9.2.0",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "依赖 xgboost",
+      "status": "通过",
+      "detail": "加分项模型：3.4.1",
+      "required": false,
+      "hint": ""
+    },
+    {
+      "name": "依赖 lightgbm",
+      "status": "通过",
+      "detail": "加分项模型：4.7.0",
+      "required": false,
+      "hint": ""
+    },
+    {
+      "name": "SQLite",
+      "status": "通过",
+      "detail": "3.50.4，内存库读写正常（返回 'ok'）",
+      "required": true,
+      "hint": ""
+    },
+    {
+      "name": "Playwright Chromium",
+      "status": "通过",
+      "detail": "158.0.8127.18，页面渲染正常（ok）",
+      "required": true,
+      "hint": ""
+    }
+  ]
+}

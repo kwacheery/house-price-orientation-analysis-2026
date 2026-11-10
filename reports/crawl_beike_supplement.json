@@ -1,0 +1,23 @@
+{
+  "source": "beike",
+  "started_at": "2026-11-10T11:24:19+08:00",
+  "finished_at": "2026-11-10T11:24:23+08:00",
+  "pages": 1,
+  "rows": 30,
+  "written": 30,
+  "duplicate": 0,
+  "blocked": false,
+  "block_reason": null,
+  "block_url": null,
+  "errors": [],
+  "targets": {
+    "北京": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://bj.ke.com/ershoufang/"
+    }
+  }
+}

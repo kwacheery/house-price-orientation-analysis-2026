@@ -1,0 +1,282 @@
+# 项目结构说明
+
+> 适用版本：W2 完成（2026-11-10）。  
+> 维护规则：目录、模块职责、数据流或入口命令发生变化时，同步更新本文件与根目录 [`AGENTS.md`](../AGENTS.md)。
+
+## 1. 项目一句话
+
+用广州多平台二手房数据预测房源单价，并在控制面积、区县、楼层、房龄等因素后，量化“朝向”对房价的溢价。
+
+- 主分析城市：广州（11 个行政区）。
+- 主分析站点：房天下广州（`fang`）。
+- 稳健性检验：链家、贝壳多城市首页数据，仅使用 `city` 字段，不做事后区县映射。
+- 当前阶段：W0 环境、W1 采集、W2 清洗已完成；W3 特征工程待实现。
+
+## 2. 目录树（当前实际状态）
+
+```text
+.
+├── AGENTS.md                     # AI/协作者工作约定（根目录）
+├── README.md                     # 项目入口、结果速览、复现命令
+├── requirements.txt              # 固定版本依赖（Python 3.14.5 验证）
+├── .gitignore                    # raw/processed/logs/密钥/课程材料忽略规则
+├── .github/
+│   └── workflows/pages.yml       # GitHub Pages 静态站部署
+├── docs/
+│   ├── PLAN.md                   # 项目计划书（v0.5，含 W1/W2 结果）
+│   └── STRUCTURE.md              # 本文件
+├── config/                       # 配置目录（当前仅 .gitkeep）
+├── crawler/                      # 采集层
+│   ├── __init__.py
+│   ├── base.py                   # 限速、重试、阻断识别、JSONL 落盘、统计
+│   ├── parse.py                  # 三站列表页解析与字段标准化
+│   ├── cities.py                 # 链家/贝壳城市代码表
+│   ├── fang.py                   # 房天下广州 11 区翻页采集
+│   ├── ershoufang.py             # 链家/贝壳城市首页共用采集器
+│   ├── lianjia.py                # 链家 CLI 入口
+│   └── beike.py                  # 贝壳 CLI 入口
+├── pipeline/                     # 清洗与特征层
+│   ├── __init__.py
+│   └── clean.py                  # W2 清洗流水线（w2-v1）
+├── data/
+│   ├── raw/                      # 原始 JSONL（不入库）
+│   │   └── {source}/{city_code}/{date}.jsonl
+│   ├── processed/                # 清洗/特征数据（不入库）
+│   │   └── clean.csv
+│   ├── samples/                  # 脱敏小样本（入库）
+│   │   ├── fang_sample.csv
+│   │   ├── lianjia_sample.csv
+│   │   ├── beike_sample.csv
+│   │   └── README.md
+│   └── db/                       # SQLite 预留目录（当前仅 .gitkeep）
+├── models/
+│   └── artifacts/                # 模型产物（不入库，当前仅 .gitkeep）
+├── web/
+│   ├── backend/                  # FastAPI 预留（当前仅 .gitkeep）
+│   └── frontend/
+│       ├── index.html            # 零构建静态页骨架
+│       ├── assets/               # CSS/ECharts 预留
+│       ├── js/                   # 本地/Pages 模式判断预留
+│       └── data/                 # 静态导出 JSON 预留
+├── scripts/                      # 可执行脚本
+│   ├── check_env.py              # W0 环境自检
+│   ├── pilot_w1.py               # W1 采集与字段完整率报告
+│   ├── make_samples.py           # 从 raw 生成脱敏样本
+│   └── plot_preprocessing.py     # W2 缺失值/异常值图表
+├── tests/
+│   ├── test_parse.py             # 解析、数字提取、阻断识别
+│   └── test_clean.py             # 清洗、区县补全、去重、特征标记
+├── notebooks/                    # 探索性分析预留
+├── logs/                         # 采集日志（不入库）
+└── reports/                      # 可读报告、JSON/CSV 汇总、图表
+    ├── pilot_w1_summary.json
+    ├── pilot_w1_fields.csv
+    ├── pilot_w1_notes.md
+    ├── preprocessing_report.md
+    ├── preprocessing_summary.csv
+    ├── preprocessing_summary.json
+    ├── crawl_fang / lianjia / beike 统计与补充记录
+    ├── env_check.json
+    └── figures/
+        ├── missing_before_after.png
+        └── outlier_boxplot.png
+```
+
+## 3. 模块职责
+
+### 3.1 `crawler/` 采集层
+
+| 文件 | 职责 | 关键约定 |
+|---|---|---|
+| `base.py` | HTTP/浏览器抓取、随机限速、重试、登录/验证码/403 识别、JSONL 追加落盘、按 URL 去重、统计 | 单站点串行；阻断不绕过；原始数据只追加 |
+| `parse.py` | 房天下、链家、贝壳列表卡片解析；价格/面积/楼层/朝向/户型标准化；`FIELD_ORDER` 统一字段顺序 | 缺失字段返回 `None`，交给清洗层标“未知” |
+| `cities.py` | 链家/贝壳城市代码、名称、拼音 | 城市代码即站点子域名前缀 |
+| `fang.py` | 房天下广州 11 区县翻页采集 | 主分析数据源；每页约 60 条 |
+| `ershoufang.py` | 链家/贝壳城市首页共用采集器 | 每城只取首页约 31 条；不翻页、不绕验证 |
+| `lianjia.py` / `beike.py` | 站点 CLI 封装 | 支持 `--cities`、`--target-cities`、`--max-attempts` |
+
+### 3.2 `pipeline/` 清洗与特征层
+
+| 文件 | 职责 | 状态 |
+|---|---|---|
+| `clean.py` | raw JSONL → 类型转换 → 区县补全 → 朝向标准化 → 单价重算/校验 → 去重 → 缺失值处理 → 异常值/别墅标记 → `clean.csv` + W2 报告 | 已完成（`w2-v1`） |
+| `features.py` | 编码、衍生特征、训练/测试划分、特征字典 | W3 待实现 |
+| `build_dataset.py` | raw → clean → features 一键构建 | 待实现 |
+
+### 3.3 `scripts/` 入口脚本
+
+| 脚本 | 作用 | 状态 |
+|---|---|---|
+| `check_env.py` | Python/依赖/SQLite/Playwright 自检 | 已完成 |
+| `pilot_w1.py` | W1 采集、字段完整率统计与报告 | 已完成 |
+| `make_samples.py` | 从 raw 抽样生成脱敏 CSV | 已完成 |
+| `plot_preprocessing.py` | 生成缺失值对比图、异常值箱线图 | 已完成 |
+| `run_pipeline.py` | 清洗 → 特征 → 训练 → 评估 | 待实现 |
+| `export_static.py` | 导出 Pages 静态 JSON | 待实现 |
+| `run_web.py` | 启动本地 FastAPI | 待实现 |
+
+### 3.4 其他目录
+
+| 目录 | 用途 | 提交策略 |
+|---|---|---|
+| `docs/` | 计划书、结构说明；后续补 `data_dictionary.md`、`feature_dictionary.md` | 提交 |
+| `tests/` | 解析与清洗单测；W3 补 `test_features.py` | 提交 |
+| `reports/` | 报告、汇总 JSON/CSV、图表 | 提交最新版本 |
+| `data/samples/` | 每站 60 条脱敏样本 | 提交 |
+| `web/` | 本地动态版 + Pages 静态版 | 提交源码与静态数据 |
+| `models/artifacts/` | 训练产物（`.joblib` 等） | 忽略 |
+| `notebooks/` | 探索性分析，最终逻辑沉淀到 `pipeline/` | 提交（数据不入库） |
+
+## 4. 数据流
+
+```text
+站点 HTML
+   │
+   ▼
+crawler/base.py + crawler/parse.py
+   │
+   ▼
+data/raw/{source}/{city_code}/{date}.jsonl        # 只追加、按 URL 去重、不入库
+   │
+   ▼
+pipeline/clean.py（W2, w2-v1）
+   ├── data/processed/clean.csv                   # 48 列，不入库
+   └── reports/preprocessing_report.md
+       reports/preprocessing_summary.csv/.json
+       reports/figures/*.png
+   │
+   ▼
+pipeline/features.py（W3，待实现）
+   ├── data/processed/features.csv
+   ├── data/processed/train.csv / test.csv
+   └── docs/feature_dictionary.md
+   │
+   ▼
+models/train.py → evaluate.py → premium.py（W4/W5）
+   ├── models/artifacts/*.joblib                  # 不入库
+   ├── reports/figures/*
+   └── web/frontend/data/*.json                   # Pages 静态数据
+```
+
+## 5. 数据分层与命名
+
+### 5.1 原始层 `data/raw/`
+
+```text
+data/raw/{source}/{city_code}/{date}.jsonl
+```
+
+- `source`：`fang` / `lianjia` / `beike`。
+- `city_code`：`gz`、`sz`、`bj` 等；广州固定为 `gz`。
+- `date`：采集日期，例如 `2026-11-10`。
+- 每行一条 JSON 记录，字段顺序由 `crawler.parse.FIELD_ORDER` 统一。
+- 只追加、不覆盖；同一 URL 不重复写入。
+- **禁止手工修改或删除 raw 文件**；清洗结果必须能从 raw 重建。
+
+### 5.2 清洗层 `data/processed/clean.csv`
+
+当前 48 列，按用途分组：
+
+| 分组 | 字段 |
+|---|---|
+| 来源与位置 | `source`, `source_id`, `city`, `city_code`, `district`, `plate`, `community`, `district_source` |
+| 房源标识 | `title`, `url`, `page`, `list_url`, `crawl_time` |
+| 户型与面积 | `layout`, `rooms`, `halls`, `bathrooms`, `area` |
+| 朝向 | `orientation_raw`, `orientation`, `orientation_main`, `is_south`, `is_south_north`, `orientation_count`, `orientation_missing` |
+| 楼层与房龄 | `floor_raw`, `floor_level`, `total_floors`, `floor_ratio`, `build_year`, `age`, `age_missing` |
+| 装修与建筑 | `decoration`, `elevator`, `building_type`, `is_villa` |
+| 价格 | `total_price`, `unit_price`, `unit_price_calc`, `unit_price_raw`, `unit_price_mismatch`, `unit_price_suspect` |
+| 质量与去重 | `is_outlier`, `outlier_reason`, `cross_source_dup`, `dup_of_url`, `model_keep`, `clean_version` |
+
+关键口径：
+
+- `unit_price = total_price × 10000 / area`，原始展示值保留在 `unit_price_raw`。
+- 原始单价与重算单价偏差 >5% 时 `unit_price_suspect=1`，不直接删样本。
+- `is_outlier` 只标记，不删除；`model_keep=0` 目前只用于跨平台重复。
+- `district_source` 取值：`site` / `community_map` / `plate_map` / `missing`；映射只用于广州链家样本。
+- `is_villa` 依据标题、小区、建筑类型关键词标记；W3 主模型剔除或做敏感性分析。
+- 电梯字段当前全部为“未知”，**不作为主特征**。
+
+### 5.3 样本层 `data/samples/`
+
+- 每站 60 条，去掉标题中的敏感/可定位信息后提交。
+- 用于报告附录、Web 演示和快速查看字段。
+- 由 `python scripts/make_samples.py` 从 raw 重新生成。
+
+### 5.4 特征层与模型层（W3+）
+
+计划新增：
+
+```text
+data/processed/features.csv
+data/processed/train.csv
+data/processed/test.csv
+models/artifacts/*.joblib
+```
+
+这些文件默认不入库；特征口径写入 `docs/feature_dictionary.md`。
+
+## 6. 提交与忽略规则
+
+| 路径 | 是否提交 | 说明 |
+|---|---|---|
+| `crawler/`、`pipeline/`、`models/`、`scripts/`、`tests/`、`web/` | 提交 | 源码与测试 |
+| `docs/`、`reports/`、`README.md`、`AGENTS.md` | 提交 | 文档与最新报告 |
+| `data/samples/` | 提交 | 脱敏小样本 |
+| `data/raw/**` | 忽略 | 原始数据体积大、含站点信息 |
+| `data/processed/**` | 忽略 | 可由 raw 重建 |
+| `data/db/**`、`*.sqlite*`、`*.db` | 忽略 | 数据库产物 |
+| `logs/**`、`*.log` | 忽略 | 运行日志 |
+| `models/artifacts/**` | 忽略 | 模型二进制 |
+| `.venv/`、`__pycache__/`、`.pytest_cache/` | 忽略 | 本地环境与缓存 |
+| `.env*`、`config/settings.yaml`、`config/*.local.yaml` | 忽略 | 配置与密钥 |
+| 课程 PDF/DOCX | 忽略 | 版权与体积原因 |
+
+## 7. 常用入口命令
+
+> Windows PowerShell。若 `python` 指向系统别名，优先使用 `.venv\Scripts\python.exe`。
+
+```powershell
+# 环境自检
+.\.venv\Scripts\python.exe scripts\check_env.py
+
+# W1 采集（低频、断点续爬）
+.\.venv\Scripts\python.exe -m crawler.fang --max-pages 5
+.\.venv\Scripts\python.exe -m crawler.lianjia --target-cities 33 --max-attempts 45
+.\.venv\Scripts\python.exe -m crawler.beike --target-cities 33 --max-attempts 45
+
+# W1 只统计已有数据
+.\.venv\Scripts\python.exe scripts\pilot_w1.py --skip-crawl
+
+# W2 清洗与图表
+.\.venv\Scripts\python.exe -m pipeline.clean --day 2026-11-10
+.\.venv\Scripts\python.exe scripts\plot_preprocessing.py --day 2026-11-10
+
+# 测试与语法检查
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m compileall crawler pipeline scripts tests
+```
+
+## 8. 新增代码放置约定
+
+| 需求 | 放置位置 |
+|---|---|
+| 新站点采集器 | `crawler/<site>.py`，复用 `base.py` 与 `parse.py` |
+| 新解析规则 | `crawler/parse.py`，并补 `tests/test_parse.py` |
+| 新清洗步骤 | `pipeline/clean.py`，同步更新 `reports/preprocessing_report.md` |
+| 特征工程 | `pipeline/features.py` + `tests/test_features.py` + `docs/feature_dictionary.md` |
+| 模型训练/评估 | `models/train.py`、`models/evaluate.py`、`models/premium.py` |
+| 一键脚本 | `scripts/run_pipeline.py` 等，不把业务逻辑写进脚本 |
+| Web API | `web/backend/app.py` |
+| 前端 | `web/frontend/`，零构建，不引入 Node.js |
+
+## 9. 当前缺口与 W3 待办
+
+- [ ] `pipeline/features.py`：数值特征、类别编码、朝向衍生特征、房龄/楼层衍生特征。
+- [ ] `data/processed/features.csv`、`train.csv`、`test.csv`。
+- [ ] `docs/feature_dictionary.md`：字段、类型、来源、缺失处理、是否入模。
+- [ ] `docs/data_dictionary.md`：原始字段与清洗字段对照。
+- [ ] `tests/test_features.py`：编码、划分、无泄漏检查。
+- [ ] 明确主模型样本口径：是否剔除 `is_villa=1`、是否剔除 `is_outlier=1`（作为敏感性对比）。
+- [ ] `models/` 训练、评估、朝向溢价分析。
+- [ ] `web/backend/app.py` 与静态数据导出。

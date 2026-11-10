@@ -1,0 +1,389 @@
+{
+  "source": "lianjia",
+  "started_at": "2026-11-10T11:11:18+08:00",
+  "finished_at": "2026-11-10T11:17:46+08:00",
+  "pages": 32,
+  "rows": 938,
+  "written": 882,
+  "duplicate": 56,
+  "blocked": false,
+  "block_reason": null,
+  "block_url": null,
+  "errors": [
+    "重试 2 次仍失败：https://jm.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://jm.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://jm.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://zq.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://zq.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://zq.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://st.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://st.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://st.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://sg.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sg.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://sg.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://mz.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://mz.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://mz.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://sw.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sw.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://sw.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://yj.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yj.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://yj.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://mm.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://mm.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://mm.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://yunfu.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yunfu.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://yunfu.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://haikou.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://haikou.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://haikou.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://sanya.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sanya.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://sanya.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://cz.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://cz.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://cz.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://qz.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://qz.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://qz.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+  ],
+  "targets": {
+    "广州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 0,
+      "duplicate": 30,
+      "status": "ok",
+      "note": "https://gz.lianjia.com/ershoufang/"
+    },
+    "深圳": {
+      "pages": 1,
+      "rows": 30,
+      "written": 18,
+      "duplicate": 12,
+      "status": "ok",
+      "note": "https://sz.lianjia.com/ershoufang/"
+    },
+    "佛山": {
+      "pages": 1,
+      "rows": 30,
+      "written": 16,
+      "duplicate": 14,
+      "status": "ok",
+      "note": "https://fs.lianjia.com/ershoufang/"
+    },
+    "东莞": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://dg.lianjia.com/ershoufang/"
+    },
+    "珠海": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zh.lianjia.com/ershoufang/"
+    },
+    "中山": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zs.lianjia.com/ershoufang/"
+    },
+    "惠州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hui.lianjia.com/ershoufang/"
+    },
+    "江门": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://jm.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://jm.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://jm.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "清远": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://qy.lianjia.com/ershoufang/"
+    },
+    "肇庆": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://zq.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://zq.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://zq.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "汕头": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://st.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://st.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://st.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "湛江": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zj.lianjia.com/ershoufang/"
+    },
+    "韶关": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://sg.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sg.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://sg.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "梅州": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://mz.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://mz.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://mz.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "河源": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hy.lianjia.com/ershoufang/"
+    },
+    "汕尾": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://sw.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sw.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://sw.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "阳江": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://yj.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yj.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://yj.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "茂名": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://mm.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://mm.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://mm.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "云浮": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://yunfu.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yunfu.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://yunfu.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "海口": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://haikou.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://haikou.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://haikou.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "三亚": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://sanya.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sanya.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://sanya.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "南宁": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nn.lianjia.com/ershoufang/"
+    },
+    "桂林": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://gl.lianjia.com/ershoufang/"
+    },
+    "柳州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://liuzhou.lianjia.com/ershoufang/"
+    },
+    "上海": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://sh.lianjia.com/ershoufang/"
+    },
+    "杭州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hz.lianjia.com/ershoufang/"
+    },
+    "南京": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nj.lianjia.com/ershoufang/"
+    },
+    "苏州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://su.lianjia.com/ershoufang/"
+    },
+    "无锡": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wx.lianjia.com/ershoufang/"
+    },
+    "常州": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://cz.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://cz.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://cz.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "南通": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nt.lianjia.com/ershoufang/"
+    },
+    "宁波": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nb.lianjia.com/ershoufang/"
+    },
+    "温州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wz.lianjia.com/ershoufang/"
+    },
+    "嘉兴": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://jx.lianjia.com/ershoufang/"
+    },
+    "金华": {
+      "pages": 1,
+      "rows": 8,
+      "written": 8,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://jh.lianjia.com/ershoufang/"
+    },
+    "合肥": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hf.lianjia.com/ershoufang/"
+    },
+    "厦门": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://xm.lianjia.com/ershoufang/"
+    },
+    "福州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://fz.lianjia.com/ershoufang/"
+    },
+    "泉州": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://qz.lianjia.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://qz.lianjia.com/ershoufang/\nCall log:\n  - navigating to \"https://qz.lianjia.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "济南": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://jn.lianjia.com/ershoufang/"
+    },
+    "青岛": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://qd.lianjia.com/ershoufang/"
+    },
+    "烟台": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://yt.lianjia.com/ershoufang/"
+    },
+    "潍坊": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wf.lianjia.com/ershoufang/"
+    },
+    "淄博": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zb.lianjia.com/ershoufang/"
+    },
+    "北京": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://bj.lianjia.com/ershoufang/"
+    }
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "source": "beike",
+  "started_at": "2026-11-10T11:18:16+08:00",
+  "finished_at": "2026-11-10T11:24:13+08:00",
+  "pages": 35,
+  "rows": 990,
+  "written": 900,
+  "duplicate": 90,
+  "blocked": false,
+  "block_reason": null,
+  "block_url": null,
+  "errors": [
+    "重试 2 次仍失败：https://jm.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://jm.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://jm.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://st.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://st.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://st.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://sg.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sg.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://sg.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://mz.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://mz.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://mz.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://yj.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yj.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://yj.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://yunfu.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yunfu.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://yunfu.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://haikou.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://haikou.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://haikou.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://sanya.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sanya.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://sanya.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）",
+    "重试 2 次仍失败：https://qz.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://qz.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://qz.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+  ],
+  "targets": {
+    "广州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 0,
+      "duplicate": 30,
+      "status": "ok",
+      "note": "https://gz.ke.com/ershoufang/"
+    },
+    "深圳": {
+      "pages": 1,
+      "rows": 30,
+      "written": 0,
+      "duplicate": 30,
+      "status": "ok",
+      "note": "https://sz.ke.com/ershoufang/"
+    },
+    "佛山": {
+      "pages": 1,
+      "rows": 30,
+      "written": 0,
+      "duplicate": 30,
+      "status": "ok",
+      "note": "https://fs.ke.com/ershoufang/"
+    },
+    "东莞": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://dg.ke.com/ershoufang/"
+    },
+    "珠海": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zh.ke.com/ershoufang/"
+    },
+    "中山": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zs.ke.com/ershoufang/"
+    },
+    "惠州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hui.ke.com/ershoufang/"
+    },
+    "江门": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://jm.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://jm.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://jm.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "清远": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://qy.ke.com/ershoufang/"
+    },
+    "肇庆": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zq.ke.com/ershoufang/"
+    },
+    "汕头": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://st.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://st.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://st.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "湛江": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zj.ke.com/ershoufang/"
+    },
+    "韶关": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://sg.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sg.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://sg.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "梅州": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://mz.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://mz.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://mz.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "河源": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hy.ke.com/ershoufang/"
+    },
+    "汕尾": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://sw.ke.com/ershoufang/"
+    },
+    "阳江": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://yj.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yj.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://yj.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "茂名": {
+      "pages": 1,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "empty",
+      "note": "https://mm.ke.com/ershoufang/"
+    },
+    "云浮": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://yunfu.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://yunfu.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://yunfu.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "海口": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://haikou.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://haikou.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://haikou.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "三亚": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://sanya.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://sanya.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://sanya.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "南宁": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nn.ke.com/ershoufang/"
+    },
+    "桂林": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://gl.ke.com/ershoufang/"
+    },
+    "柳州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://liuzhou.ke.com/ershoufang/"
+    },
+    "上海": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://sh.ke.com/ershoufang/"
+    },
+    "杭州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hz.ke.com/ershoufang/"
+    },
+    "南京": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nj.ke.com/ershoufang/"
+    },
+    "苏州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://su.ke.com/ershoufang/"
+    },
+    "无锡": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wx.ke.com/ershoufang/"
+    },
+    "常州": {
+      "pages": 1,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "empty",
+      "note": "https://cz.ke.com/ershoufang/"
+    },
+    "南通": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nt.ke.com/ershoufang/"
+    },
+    "宁波": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://nb.ke.com/ershoufang/"
+    },
+    "温州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wz.ke.com/ershoufang/"
+    },
+    "嘉兴": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://jx.ke.com/ershoufang/"
+    },
+    "金华": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://jh.ke.com/ershoufang/"
+    },
+    "合肥": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://hf.ke.com/ershoufang/"
+    },
+    "厦门": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://xm.ke.com/ershoufang/"
+    },
+    "福州": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://fz.ke.com/ershoufang/"
+    },
+    "泉州": {
+      "pages": 0,
+      "rows": 0,
+      "written": 0,
+      "duplicate": 0,
+      "status": "error",
+      "note": "重试 2 次仍失败：https://qz.ke.com/ershoufang/（Page.goto: net::ERR_NAME_NOT_RESOLVED at https://qz.ke.com/ershoufang/\nCall log:\n  - navigating to \"https://qz.ke.com/ershoufang/\", waiting until \"domcontentloaded\"\n）"
+    },
+    "济南": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://jn.ke.com/ershoufang/"
+    },
+    "青岛": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://qd.ke.com/ershoufang/"
+    },
+    "烟台": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://yt.ke.com/ershoufang/"
+    },
+    "潍坊": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://wf.ke.com/ershoufang/"
+    },
+    "淄博": {
+      "pages": 1,
+      "rows": 30,
+      "written": 30,
+      "duplicate": 0,
+      "status": "ok",
+      "note": "https://zb.ke.com/ershoufang/"
+    }
+  }
+}
