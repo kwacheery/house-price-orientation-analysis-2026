@@ -174,3 +174,10 @@ python scripts/run_pipeline.py --day 2026-11-10
 - 本机 Git 未加入 PATH，可用绝对路径：`"C:\Program Files\Git\cmd\git.exe"`。
 - 已验证 Python 3.14.5；若其他机器安装二进制依赖失败，可回退到 3.11/3.12 或 conda。
 - 前端零构建，不需要 Node.js；GitHub Pages 由 Actions 发布 `web/frontend/`。
+- **GitHub 网络加速**：国内 DNS 常把 `github.com` 解析到不可达 IP（`api.github.com` 通常正常）。本机已在 hosts 中固定 `140.82.112.3 github.com`，`git fetch/push` 约 2 秒。若再次失效，运行：
+  ```powershell
+  .\.venv\Scripts\python.exe scripts\check_github_network.py            # 只检测
+  .\.venv\Scripts\python.exe scripts\check_github_network.py --apply    # 管理员权限写入可用 IP
+  .\.venv\Scripts\python.exe scripts\check_github_network.py --restore  # 还原 hosts
+  ```
+  脚本用 DoH + `curl --resolve` 逐个实测候选 IP，自动备份 hosts 到系统临时目录。备用通道：SSH over 443（`ssh.github.com:443` 已测可达）。

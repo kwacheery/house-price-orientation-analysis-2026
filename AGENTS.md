@@ -196,6 +196,7 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 - 路径含空格时加引号；Git 路径为 `C:\Program Files\Git\cmd\git.exe`。
 - 文件编码统一 UTF-8；不要用系统默认编码写中文文件。
 - 长路径/权限问题优先在项目根目录内操作，不使用系统临时目录存放项目数据。
+- GitHub 加速：`github.com` 易被 DNS 污染，当前 hosts 固定 `140.82.112.3 github.com`；失效时运行 `scripts/check_github_network.py --apply`（管理员）重新选 IP，`--restore` 还原（备份在系统临时目录）。`api.github.com` 通常不受影响，可作应急推送通道。
 
 ## 10. 下一步（最终交付）
 
