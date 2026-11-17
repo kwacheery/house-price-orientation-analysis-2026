@@ -22,7 +22,7 @@
 | W0 环境 | 完成 | Python 3.14.5 + `.venv`；依赖见 `requirements.txt` |
 | W1 采集 | 完成 | 房天下 1274、链家 1032、贝壳 1020；去重后 3326 条 |
 | W2 清洗 | 完成 | 3326 → 3302 条；`model_keep=1` 3297 条；`clean_version=w2-v1` |
-| W3 特征工程 | 待开始 | 目标：`features.csv` + 特征字典 + 训练/测试划分 |
+| W3 特征工程 | 完成 | `w3-v1`；广州房天下主样本 1251 条，训练 1000 / 测试 251，入模特征 40 个；33 项测试全通过 |
 | W4/W5 建模与溢价 | 未开始 | 计划见 `docs/PLAN.md` |
 
 W2 已确认的口径：
@@ -159,7 +159,7 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 
 要求：
 
-- 当前基线：`pytest` 25 项全部通过。
+- 当前基线：`pytest` 33 项全部通过（解析 11 + 清洗 14 + 特征 8）。
 - 新增解析规则 → 补 `tests/test_parse.py`。
 - 新增清洗/特征逻辑 → 补 `tests/test_clean.py` 或 `tests/test_features.py`。
 - 特征工程必须包含防泄漏检查：目标编码/统计量只能从训练集拟合。
@@ -183,7 +183,7 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 | 目录/模块职责变化 | `docs/STRUCTURE.md`、本文件 |
 | 阶段状态/数据量变化 | `README.md`、`docs/PLAN.md` |
 | 清洗口径变化 | `reports/preprocessing_report.md`、`docs/PLAN.md` 6.x |
-| 新增特征 | `docs/feature_dictionary.md`（W3 新建） |
+| 新增特征 | `docs/feature_dictionary.md`（W3 已建，新特征需同步补充） |
 | 新增原始/清洗字段 | `docs/data_dictionary.md`（待建）、`docs/STRUCTURE.md` |
 | 新增依赖 | `requirements.txt`、`README.md` |
 
@@ -195,15 +195,15 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 - 文件编码统一 UTF-8；不要用系统默认编码写中文文件。
 - 长路径/权限问题优先在项目根目录内操作，不使用系统临时目录存放项目数据。
 
-## 10. 下一步（W3）
+## 10. 下一步（W4/W5）
 
-1. 新建 `pipeline/features.py`：
-   - 数值特征：`area`、`rooms`、`halls`、`bathrooms`、`total_floors`、`floor_ratio`、`age`。
-   - 类别特征：`district`、`plate`、`floor_level`、`decoration`、`building_type`、`orientation_main`。
-   - 朝向衍生：`is_south`、`is_south_north`、`orientation_count`、`orientation_missing`。
-   - 派生：`area_per_room`、`age_missing`、`floor_missing` 等。
-   - 明确 `elevator` 不进入主模型。
-2. 生成 `data/processed/features.csv`、`train.csv`、`test.csv`。
-3. 新建 `docs/feature_dictionary.md`，记录字段、类型、来源、缺失处理、是否入模。
-4. 新建 `tests/test_features.py`，覆盖编码、划分、无泄漏。
-5. 完成后再进入 `models/` 训练与朝向溢价分析。
+W3 已完成，产物与口径见 `docs/feature_dictionary.md`、`data/processed/feature_meta.json`。后续：
+
+1. 新建 `models/train.py`：
+   - 读取 `train.csv` / `test.csv`（`row_id` 关联回 `features.csv` 取区县/小区分组列）。
+   - 基线：全局均值、区县均值、面积单变量回归；主模型：Ridge、RandomForest、HistGradientBoosting。
+   - 统一 Pipeline 封装，超参只在训练集搜索，5 折 CV。
+2. 新建 `models/evaluate.py`：MSE/RMSE/MAE/R²，训练/测试同时报告，反变换到元/㎡；分区县/价格段/朝向分组误差。
+3. 新建 `models/premium.py`：以“北”为参照组估计各朝向系数，`premium=exp(β)−1` + 95% CI；区县/板块异质性、bootstrap、跨城市稳健性检验。
+4. 消融实验：A 不含朝向 / B 含朝向 One-Hot + 二值 / C 加交叉特征，报告 ΔR²、ΔRMSE。
+5. 敏感性对比：剔除 `is_villa=1`、`is_outlier=1` 后重评；房龄/装修全缺作为数据源局限性如实记录。

@@ -1,6 +1,6 @@
 # 项目结构说明
 
-> 适用版本：W2 完成（2026-11-10）。  
+> 适用版本：W3 完成（2026-11-17）。  
 > 维护规则：目录、模块职责、数据流或入口命令发生变化时，同步更新本文件与根目录 [`AGENTS.md`](../AGENTS.md)。
 
 ## 1. 项目一句话
@@ -10,7 +10,7 @@
 - 主分析城市：广州（11 个行政区）。
 - 主分析站点：房天下广州（`fang`）。
 - 稳健性检验：链家、贝壳多城市首页数据，仅使用 `city` 字段，不做事后区县映射。
-- 当前阶段：W0 环境、W1 采集、W2 清洗已完成；W3 特征工程待实现。
+- 当前阶段：W0 环境、W1 采集、W2 清洗、W3 特征工程已完成；W4 建模与朝向溢价分析待实现。
 
 ## 2. 目录树（当前实际状态）
 
@@ -23,8 +23,9 @@
 ├── .github/
 │   └── workflows/pages.yml       # GitHub Pages 静态站部署
 ├── docs/
-│   ├── PLAN.md                   # 项目计划书（v0.5，含 W1/W2 结果）
-│   └── STRUCTURE.md              # 本文件
+│   ├── PLAN.md                   # 项目计划书（v0.6，含 W1/W2/W3 结果）
+│   ├── STRUCTURE.md              # 本文件
+│   └── feature_dictionary.md     # W3 特征字典
 ├── config/                       # 配置目录（当前仅 .gitkeep）
 ├── crawler/                      # 采集层
 │   ├── __init__.py
@@ -37,12 +38,15 @@
 │   └── beike.py                  # 贝壳 CLI 入口
 ├── pipeline/                     # 清洗与特征层
 │   ├── __init__.py
-│   └── clean.py                  # W2 清洗流水线（w2-v1）
+│   ├── clean.py                  # W2 清洗流水线（w2-v1）
+│   └── features.py               # W3 特征工程（w3-v1）
 ├── data/
 │   ├── raw/                      # 原始 JSONL（不入库）
 │   │   └── {source}/{city_code}/{date}.jsonl
 │   ├── processed/                # 清洗/特征数据（不入库）
-│   │   └── clean.csv
+│   │   ├── clean.csv
+│   │   ├── features.csv / train.csv / test.csv
+│   │   └── feature_meta.json     # 版本、划分索引、编码器、入模列
 │   ├── samples/                  # 脱敏小样本（入库）
 │   │   ├── fang_sample.csv
 │   │   ├── lianjia_sample.csv
@@ -65,7 +69,8 @@
 │   └── plot_preprocessing.py     # W2 缺失值/异常值图表
 ├── tests/
 │   ├── test_parse.py             # 解析、数字提取、阻断识别
-│   └── test_clean.py             # 清洗、区县补全、去重、特征标记
+│   ├── test_clean.py             # 清洗、区县补全、去重、特征标记
+│   └── test_features.py          # W3 编码、分层划分、无泄漏检查
 ├── notebooks/                    # 探索性分析预留
 ├── logs/                         # 采集日志（不入库）
 └── reports/                      # 可读报告、JSON/CSV 汇总、图表
@@ -100,7 +105,7 @@
 | 文件 | 职责 | 状态 |
 |---|---|---|
 | `clean.py` | raw JSONL → 类型转换 → 区县补全 → 朝向标准化 → 单价重算/校验 → 去重 → 缺失值处理 → 异常值/别墅标记 → `clean.csv` + W2 报告 | 已完成（`w2-v1`） |
-| `features.py` | 编码、衍生特征、训练/测试划分、特征字典 | W3 待实现 |
+| `features.py` | 广州房天下主样本筛选、朝向/面积衍生、One-Hot/序号/频次编码、按区县分层划分、防泄漏 | 已完成（`w3-v1`） |
 | `build_dataset.py` | raw → clean → features 一键构建 | 待实现 |
 
 ### 3.3 `scripts/` 入口脚本
@@ -119,8 +124,8 @@
 
 | 目录 | 用途 | 提交策略 |
 |---|---|---|
-| `docs/` | 计划书、结构说明；后续补 `data_dictionary.md`、`feature_dictionary.md` | 提交 |
-| `tests/` | 解析与清洗单测；W3 补 `test_features.py` | 提交 |
+| `docs/` | 计划书、结构说明、W3 特征字典；后续补 `data_dictionary.md` | 提交 |
+| `tests/` | 解析、清洗与 W3 特征单测（33 项通过） | 提交 |
 | `reports/` | 报告、汇总 JSON/CSV、图表 | 提交最新版本 |
 | `data/samples/` | 每站 60 条脱敏样本 | 提交 |
 | `web/` | 本地动态版 + Pages 静态版 | 提交源码与静态数据 |
@@ -146,9 +151,10 @@ pipeline/clean.py（W2, w2-v1）
        reports/figures/*.png
    │
    ▼
-pipeline/features.py（W3，待实现）
+pipeline/features.py（W3, w3-v1）
    ├── data/processed/features.csv
    ├── data/processed/train.csv / test.csv
+   ├── data/processed/feature_meta.json
    └── docs/feature_dictionary.md
    │
    ▼
@@ -205,16 +211,17 @@ data/raw/{source}/{city_code}/{date}.jsonl
 
 ### 5.4 特征层与模型层（W3+）
 
-计划新增：
+W3 已生成（默认不入库）：
 
 ```text
-data/processed/features.csv
-data/processed/train.csv
-data/processed/test.csv
-models/artifacts/*.joblib
+data/processed/features.csv       # 1251 行主样本 + split 标签
+data/processed/train.csv          # 1000 行，编码特征 + 目标
+data/processed/test.csv           # 251 行，列结构与 train 一致
+data/processed/feature_meta.json  # 版本、种子、划分索引、编码器、入模列
 ```
 
-这些文件默认不入库；特征口径写入 `docs/feature_dictionary.md`。
+主样本口径：广州 + 房天下 + `model_keep=1`；别墅与异常值保留、只做标记；`elevator` 不入模。
+W4/W5 计划新增 `models/artifacts/*.joblib`。特征口径见 `docs/feature_dictionary.md`。
 
 ## 6. 提交与忽略规则
 
@@ -252,6 +259,9 @@ models/artifacts/*.joblib
 .\.venv\Scripts\python.exe -m pipeline.clean --day 2026-11-10
 .\.venv\Scripts\python.exe scripts\plot_preprocessing.py --day 2026-11-10
 
+# W3 特征工程（生成 features/train/test + feature_meta.json）
+.\.venv\Scripts\python.exe -m pipeline.features
+
 # 测试与语法检查
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m compileall crawler pipeline scripts tests
@@ -270,13 +280,18 @@ models/artifacts/*.joblib
 | Web API | `web/backend/app.py` |
 | 前端 | `web/frontend/`，零构建，不引入 Node.js |
 
-## 9. 当前缺口与 W3 待办
+## 9. 当前缺口与 W4/W5 待办
 
-- [ ] `pipeline/features.py`：数值特征、类别编码、朝向衍生特征、房龄/楼层衍生特征。
-- [ ] `data/processed/features.csv`、`train.csv`、`test.csv`。
-- [ ] `docs/feature_dictionary.md`：字段、类型、来源、缺失处理、是否入模。
+已完成（W3）：
+
+- [x] `pipeline/features.py`、`tests/test_features.py`、`docs/feature_dictionary.md`。
+- [x] `data/processed/features.csv`、`train.csv`、`test.csv`、`feature_meta.json`。
+- [x] 主模型样本口径：广州房天下 1251 条；别墅与异常值**保留、只做标记**，供敏感性对比。
+
+待办：
+
 - [ ] `docs/data_dictionary.md`：原始字段与清洗字段对照。
-- [ ] `tests/test_features.py`：编码、划分、无泄漏检查。
-- [ ] 明确主模型样本口径：是否剔除 `is_villa=1`、是否剔除 `is_outlier=1`（作为敏感性对比）。
-- [ ] `models/` 训练、评估、朝向溢价分析。
+- [ ] `models/train.py`、`models/evaluate.py`、`models/premium.py`：基线、主模型、消融、朝向溢价与置信区间。
+- [ ] `scripts/run_pipeline.py`：清洗 → 特征 → 训练 → 评估一键串联。
 - [ ] `web/backend/app.py` 与静态数据导出。
+- [ ] 房龄/装修在主样本中全缺，需在报告中作为数据源局限性说明；必要时用多城市样本做稳健性检验。

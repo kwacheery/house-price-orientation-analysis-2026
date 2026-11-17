@@ -2,12 +2,13 @@
 
 广州二手房 · 3 人组 · 《数据预处理》课程项目
 
-**当前状态：W0 环境自检完成（Python 3.14.5 + venv）；W1 采集完成（3326 条）；W2 清洗完成——输出 3302 条，`model_keep=1` 共 3297 条。下一步进入 W3 特征工程。**
+**当前状态：W0 环境自检完成（Python 3.14.5 + venv）；W1 采集完成（3326 条）；W2 清洗完成——输出 3302 条、`model_keep=1` 共 3297 条；W3 特征工程完成——广州房天下主样本 1251 条，训练 1000 / 测试 251，入模特征 40 个。下一步进入 W4 建模与朝向溢价分析。**
 
 ## 先看这里
 
 - 项目计划书：[docs/PLAN.md](docs/PLAN.md)
 - 项目结构与数据流：[docs/STRUCTURE.md](docs/STRUCTURE.md)
+- W3 特征字典：[docs/feature_dictionary.md](docs/feature_dictionary.md)
 - 协作与 Agent 约定：[AGENTS.md](AGENTS.md)
 - 课程原始材料（PDF / DOCX）已通过 `.gitignore` 排除，不进入版本管理。
 - Web 双形态：**本地 FastAPI 动态版**（答辩主用）+ **GitHub Pages 静态版**（在线预览/备份）。
@@ -49,6 +50,23 @@
 - 每步汇总：[`reports/preprocessing_summary.csv`](reports/preprocessing_summary.csv)、[`reports/preprocessing_summary.json`](reports/preprocessing_summary.json)
 - 图表：[`reports/figures/missing_before_after.png`](reports/figures/missing_before_after.png)、[`reports/figures/outlier_boxplot.png`](reports/figures/outlier_boxplot.png)
 - 清洗后数据：`data/processed/clean.csv`（由 raw 重新生成，不入库）。
+
+## W3 特征工程结果速览
+
+| 指标 | 结果 |
+|---|---|
+| 特征脚本 | `pipeline/features.py`（`w3-v1`） |
+| 主样本 | 广州 + 房天下 + `model_keep=1`：1251 条（别墅 128、异常值 70 全部保留，只做标记） |
+| 训练 / 测试 | 1000 / 251，按 `district` 分层，随机种子 42，索引落盘 |
+| 入模特征 | 40 个（数值/有序 16 + 区县 One-Hot 11 + 朝向 One-Hot 9 + 建筑类型 One-Hot 2 + 频次 2） |
+| 目标变量 | `log(unit_price)`，保留 `unit_price` 供评估还原 |
+| 防泄漏 | 中位数 / One-Hot 类别 / 频次表只在训练集 fit；测试集仅 transform |
+| 剔除的常量列 | `bathrooms`、`age`、`age_missing`、`decoration_code`（房天下样本中无变化） |
+| 明确不入模 | `elevator`（3302 条全为“未知”）；小区不做 Target Encoding，改用频次编码 |
+
+- 特征层数据：`data/processed/features.csv`、`train.csv`、`test.csv`、`feature_meta.json`（不入库）。
+- 字段说明与口径：[docs/feature_dictionary.md](docs/feature_dictionary.md)
+- 数据局限：房天下列表页不展示建成年份与装修，主模型无法控制房龄/装修，报告中作为局限性说明。
 
 ## 数据与分工
 
@@ -102,17 +120,20 @@ python -m pipeline.clean --day 2026-11-10
 # 4.1 预处理图表
 python scripts/plot_preprocessing.py --day 2026-11-10
 
-# 5. 特征 + 训练 + 评估（W3+，待实现）
+# 5. W3 特征工程（已实现）
+python -m pipeline.features
+
+# 6. 训练 + 评估 + 朝向溢价（W4/W5，待实现）
 # python scripts/run_pipeline.py
 
-# 6. 导出 GitHub Pages 静态数据
+# 7. 导出 GitHub Pages 静态数据
 python scripts/export_static.py
 
-# 7. 启动本地 Web
+# 8. 启动本地 Web
 python scripts/run_web.py
 ```
 
-> 采集依赖网络与站点状态，不放进“一键全链路”默认流程；W1/W2 均可基于 `data/raw/` 现有快照复现。
+> 采集依赖网络与站点状态，不放进“一键全链路”默认流程；W1/W2/W3 均可基于 `data/raw/` 现有快照复现。
 
 ## 开发提示
 
