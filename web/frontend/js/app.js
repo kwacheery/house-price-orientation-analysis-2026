@@ -261,6 +261,34 @@
     });
   }
 
+  function renderPredictions(data) {
+    var points = data.points || [];
+    var values = points.reduce(function (all, p) { return all.concat([p.actual, p.predicted]); }, []);
+    var low = Math.min.apply(null, values);
+    var high = Math.max.apply(null, values);
+    draw('chartTruePred', {
+      tooltip: {
+        trigger: 'item',
+        formatter: function (p) { return '真实 ' + fmt(Math.round(p.value[0])) + ' 元/㎡<br/>预测 ' + fmt(Math.round(p.value[1])) + ' 元/㎡'; }
+      },
+      grid: { left: 62, right: 24, top: 14, bottom: 36 },
+      xAxis: Object.assign({ type: 'value', name: '真实单价（元/㎡）', min: low, max: high, nameLocation: 'middle', nameGap: 24, nameTextStyle: { fontSize: 10, color: COLORS.muted } }, axisStyle()),
+      yAxis: Object.assign({ type: 'value', name: '预测单价（元/㎡）', min: low, max: high, nameTextStyle: { fontSize: 10, color: COLORS.muted } }, axisStyle()),
+      series: [
+        {
+          type: 'scatter', symbolSize: 7,
+          data: points.map(function (p) { return [p.actual, p.predicted]; }),
+          itemStyle: { color: COLORS.accent, opacity: 0.45 }
+        },
+        {
+          type: 'line', showSymbol: false, silent: true,
+          data: [[low, low], [high, high]],
+          lineStyle: { color: COLORS.coral, type: 'dashed', width: 1.5 }
+        }
+      ]
+    });
+  }
+
   function renderImportance(data) {
     var items = (data.features || []).slice(0, 12).reverse();
     draw('chartImportance', {
@@ -462,12 +490,13 @@
       ['preprocessing', renderPreprocessing],
       ['orientation', renderOrientation],
       ['metrics', renderModel],
-      ['importance', renderImportance]
+      ['importance', renderImportance],
+      ['predictions', renderPredictions]
     ];
     await Promise.all(tasks.map(async function (task) {
       try { task[1](await CFG.load(task[0])); }
       catch (error) {
-        var target = { overview: '#chartSources', preprocessing: '#chartSteps', orientation: '#chartPremium', metrics: '#chartModels', importance: '#chartImportance' }[task[0]];
+        var target = { overview: '#chartSources', preprocessing: '#chartSteps', orientation: '#chartPremium', metrics: '#chartModels', importance: '#chartImportance', predictions: '#chartTruePred' }[task[0]];
         var el = document.querySelector(target);
         if (el) el.innerHTML = '<div style="padding:28px;text-align:center;color:#8293a0;font-size:12px">' + (error.message || '暂无数据') + '</div>';
       }

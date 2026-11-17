@@ -202,6 +202,127 @@
       "importance_std": 0.0026721701755710882
     }
   ],
+  "top_correlations": [
+    {
+      "feature": "log_area",
+      "corr_with_log_price": 0.452381377070959
+    },
+    {
+      "feature": "district=从化区",
+      "corr_with_log_price": -0.3624733324990615
+    },
+    {
+      "feature": "area_per_room",
+      "corr_with_log_price": 0.3580051677107156
+    },
+    {
+      "feature": "district=天河区",
+      "corr_with_log_price": 0.32546853066793663
+    },
+    {
+      "feature": "area",
+      "corr_with_log_price": 0.31324156228700495
+    },
+    {
+      "feature": "district=花都区",
+      "corr_with_log_price": -0.2818929657282137
+    },
+    {
+      "feature": "district=越秀区",
+      "corr_with_log_price": 0.27277724772135975
+    },
+    {
+      "feature": "district=海珠区",
+      "corr_with_log_price": 0.2658608031298229
+    },
+    {
+      "feature": "district=增城区",
+      "corr_with_log_price": -0.2396659568383852
+    },
+    {
+      "feature": "plate_freq",
+      "corr_with_log_price": -0.23534030898870076
+    }
+  ],
+  "district_price_gap": [
+    {
+      "district": "从化区",
+      "district_mean_price": 14264.812285714286,
+      "n": 105,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": -0.5774003566428624
+    },
+    {
+      "district": "南沙区",
+      "district_mean_price": 17891.49,
+      "n": 119,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": -0.4699588650949295
+    },
+    {
+      "district": "增城区",
+      "district_mean_price": 17566.443245614035,
+      "n": 114,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": -0.4795884795424656
+    },
+    {
+      "district": "天河区",
+      "district_mean_price": 61214.62100840337,
+      "n": 119,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": 0.8135027989327825
+    },
+    {
+      "district": "海珠区",
+      "district_mean_price": 53277.89915254237,
+      "n": 118,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": 0.5783748660492474
+    },
+    {
+      "district": "番禺区",
+      "district_mean_price": 40667.123529411765,
+      "n": 119,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": 0.20477658981192212
+    },
+    {
+      "district": "白云区",
+      "district_mean_price": 25712.542909090906,
+      "n": 110,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": -0.23825766189233732
+    },
+    {
+      "district": "花都区",
+      "district_mean_price": 13863.407142857142,
+      "n": 105,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": -0.5892921128619775
+    },
+    {
+      "district": "荔湾区",
+      "district_mean_price": 38432.64055045872,
+      "n": 109,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": 0.1385793142306074
+    },
+    {
+      "district": "越秀区",
+      "district_mean_price": 54970.5170338983,
+      "n": 118,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": 0.6285192141608085
+    },
+    {
+      "district": "黄埔区",
+      "district_mean_price": 28065.107652173912,
+      "n": 115,
+      "overall_mean": 33754.908481215025,
+      "district_price_gap": -0.16856217614121363
+    }
+  ],
   "figures": [
     "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\figures\\true_vs_predicted.png",
     "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\figures\\feature_importance.png",

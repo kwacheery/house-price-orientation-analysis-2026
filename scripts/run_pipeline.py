@@ -63,6 +63,13 @@ def main() -> int:
             "south_premium": premium["south_premium"],
             "south_ci": premium["south_premium_ci"],
         }
+        from models.full_sample import run_full_sample
+
+        full = run_full_sample()
+        report["full_sample"] = {
+            "rows": full["rows_total"],
+            "meets_2000": full["meets_2000_target"],
+        }
 
     from scripts.export_static import export_all
 

@@ -1,0 +1,46 @@
+# 采集配置模板（复制为 config/settings.yaml 后按需修改，settings.yaml 不入库）
+# 实际脚本也支持命令行参数覆盖：--max-pages / --min-delay / --max-delay / --target-cities
+
+crawl:
+  # 主分析城市
+  main_city: 广州
+  main_city_code: gz
+  # 房天下广州 11 区，每区页数
+  fang:
+    districts:
+      - 天河
+      - 越秀
+      - 荔湾
+      - 海珠
+      - 白云
+      - 番禺
+      - 黄埔
+      - 花都
+      - 南沙
+      - 从化
+      - 增城
+    max_pages: 2
+    min_delay_sec: 1.5
+    max_delay_sec: 3.0
+  # 链家/贝壳只取城市首页，不翻页
+  ershoufang:
+    target_cities: 33
+    max_attempts: 45
+    min_delay_sec: 3.0
+    max_delay_sec: 5.0
+    homepage_only: true
+  retry: 3
+  # 阻断即停：登录跳转 / 验证码 / 403 / 429
+  stop_on_block: true
+
+paths:
+  raw_root: data/raw
+  log_dir: logs
+  clean_csv: data/processed/clean.csv
+
+model:
+  seed: 42
+  test_size: 0.2
+  cv_folds: 5
+  main_source: fang
+  main_city_code: gz

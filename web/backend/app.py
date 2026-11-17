@@ -235,6 +235,34 @@ def model_importance() -> dict[str, Any]:
     )
 
 
+@app.get("/api/model/predictions")
+def model_predictions() -> dict[str, Any]:
+    """最优模型测试集的真实值 vs 预测值散点数据（抽样以控制体积）。"""
+    frame = _read_csv(ARTIFACT_DIR / "predictions.csv")
+    metrics = _read_csv(ARTIFACT_DIR / "model_metrics.csv")
+    if frame.empty or metrics.empty:
+        return _empty()
+    candidates = metrics[~metrics["model"].str.startswith("baseline_")]
+    best = str(candidates.loc[candidates["rmse_yuan"].idxmin(), "model"])
+    subset = frame[(frame["model"] == best) & (frame["split"] == "test")]
+    if subset.empty:
+        return _empty()
+    step = max(1, len(subset) // 300)
+    subset = subset.iloc[::step]
+    return _ok(
+        {
+            "model": best,
+            "points": [
+                {
+                    "actual": round(float(row.y_true_yuan), 2),
+                    "predicted": round(float(row.y_pred_yuan), 2),
+                }
+                for row in subset.itertuples()
+            ],
+        }
+    )
+
+
 class PredictRequest(BaseModel):
     district: str = Field(default="天河区", description="区县")
     area: float = Field(default=90.0, gt=0, le=1000, description="建筑面积（㎡）")

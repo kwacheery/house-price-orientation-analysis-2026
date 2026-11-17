@@ -156,6 +156,55 @@ def compute_feature_importance(
 # ---------------------------------------------------------------------------
 
 
+def feature_correlation(
+    *,
+    data_dir: str | Path = DATA_DIR,
+    artifact_dir: str | Path = ARTIFACT_DIR,
+) -> pd.DataFrame:
+    """训练特征与目标的 Pearson 相关（用于初步筛选，只统计不拟合模型）。"""
+    train, _, _ = load_split(data_dir)
+    columns = feature_columns(train)
+    correlations = []
+    target = train[LOG_TARGET_COLUMN]
+    for column in columns:
+        values = pd.to_numeric(train[column], errors="coerce")
+        if values.nunique(dropna=False) <= 1:
+            continue
+        correlations.append(
+            {
+                "feature": column,
+                "corr_with_log_price": float(values.corr(target)),
+            }
+        )
+    result = pd.DataFrame(correlations)
+    result["absolute"] = result["corr_with_log_price"].abs()
+    result = result.sort_values("absolute", ascending=False).drop(columns="absolute").reset_index(drop=True)
+    result.to_csv(Path(artifact_dir) / "feature_correlation.csv", encoding="utf-8-sig", index=False)
+    return result
+
+
+def district_price_gap(
+    *,
+    data_dir: str | Path = DATA_DIR,
+    report_dir: str | Path = REPORT_DIR,
+) -> pd.DataFrame:
+    """区县均价偏离度（分析特征）：区县均价相对全市均价的差异。
+
+    说明：该指标用于描述区域价格水平，**不入模**，避免把目标变量的变换重复
+    放进特征造成泄漏；模型内的区域信息由区县 One-Hot 表达。
+    """
+    _, _, features = load_split(data_dir)
+    overall = float(features[TARGET_COLUMN].mean())
+    grouped = features.groupby("district")[TARGET_COLUMN].agg(["mean", "count"]).reset_index()
+    grouped["overall_mean"] = overall
+    grouped["district_price_gap"] = (grouped["mean"] - overall) / overall
+    grouped = grouped.rename(columns={"mean": "district_mean_price", "count": "n"})
+    output = Path(report_dir)
+    output.mkdir(parents=True, exist_ok=True)
+    grouped.to_csv(output / "district_price_gap.csv", encoding="utf-8-sig", index=False)
+    return grouped
+
+
 def make_figures(
     *,
     predictions: pd.DataFrame,
@@ -243,6 +292,9 @@ def evaluate_all(
     grouped = grouped_error_analysis(predictions, features, model_name=best)
     grouped.to_csv(output / "grouped_errors.csv", encoding="utf-8-sig", index=False)
 
+    correlation = feature_correlation(data_dir=data_dir, artifact_dir=artifact_dir)
+    price_gap = district_price_gap(data_dir=data_dir, report_dir=report_dir)
+
     importance = compute_feature_importance(
         model_name=best,
         data_dir=data_dir,
@@ -271,6 +323,8 @@ def evaluate_all(
         "ablation": ablation.to_dict("records"),
         "sensitivity": sensitivity.to_dict("records"),
         "top_features": importance.head(10).to_dict("records"),
+        "top_correlations": correlation.head(10).to_dict("records"),
+        "district_price_gap": price_gap.to_dict("records"),
         "figures": figures,
     }
     Path(report_dir).mkdir(parents=True, exist_ok=True)

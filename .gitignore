@@ -32,6 +32,7 @@ data/processed/*
 !data/processed/.gitkeep
 data/db/*
 !data/db/.gitkeep
+!data/db/schema.sql
 *.sqlite
 *.sqlite3
 *.db

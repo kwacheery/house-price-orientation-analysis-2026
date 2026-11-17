@@ -31,6 +31,7 @@ from models.predict import (  # noqa: E402
 from web.backend.app import (  # noqa: E402
     model_importance,
     model_metrics,
+    model_predictions,
     orientation,
     overview,
     preprocessing,
@@ -69,6 +70,7 @@ def export_all() -> dict[str, str]:
         ("orientation", orientation),
         ("metrics", model_metrics),
         ("importance", model_importance),
+        ("predictions", model_predictions),
     ):
         outputs[name] = str(_dump(name, function()))
 

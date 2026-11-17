@@ -10,7 +10,8 @@
     preprocessing: 'preprocessing',
     orientation: 'orientation',
     metrics: 'model/metrics',
-    importance: 'model/importance'
+    importance: 'model/importance',
+    predictions: 'model/predictions'
   };
 
   async function load(name) {

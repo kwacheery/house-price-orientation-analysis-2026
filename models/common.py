@@ -94,9 +94,11 @@ def compute_metrics(y_true_log: np.ndarray, y_pred_log: np.ndarray) -> dict[str,
         return 1 - ss_res / ss_tot if ss_tot > 0 else 0.0
 
     return {
+        "mse_log": float(np.mean((true_log - pred_log) ** 2)),
         "log_rmse": float(np.sqrt(np.mean((true_log - pred_log) ** 2))),
         "log_mae": float(np.mean(np.abs(true_log - pred_log))),
         "r2_log": r2(true_log, pred_log),
+        "mse_yuan": float(np.mean((true_yuan - pred_yuan) ** 2)),
         "rmse_yuan": float(np.sqrt(np.mean((true_yuan - pred_yuan) ** 2))),
         "mae_yuan": float(np.mean(np.abs(true_yuan - pred_yuan))),
         "r2_yuan": r2(true_yuan, pred_yuan),

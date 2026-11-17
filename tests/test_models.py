@@ -21,6 +21,7 @@ from models.premium import (
     build_design_matrix,
     premium_table,
 )
+from models.full_sample import run_full_sample
 from models.train import (
     baseline_area_only,
     baseline_district_mean,
@@ -37,6 +38,8 @@ def test_compute_metrics_both_scales():
     assert metrics["log_rmse"] == pytest.approx(np.sqrt(np.mean((np.log(np.array([100.0, 200.0])) - np.log(np.array([110.0, 180.0]))) ** 2)))
     assert metrics["rmse_yuan"] == pytest.approx(np.sqrt(np.mean((np.array([100.0, 200.0]) - np.array([110.0, 180.0])) ** 2)))
     assert metrics["r2_yuan"] <= 1.0
+    assert metrics["mse_log"] == pytest.approx(np.mean((true_log - pred_log) ** 2))
+    assert metrics["mse_yuan"] == pytest.approx(np.mean((np.array([100.0, 200.0]) - np.array([110.0, 180.0])) ** 2))
 
 
 def test_baselines():
@@ -194,3 +197,20 @@ def test_train_all_smoke(tmp_path: Path):
     config = json.loads((tmp_path / "artifacts" / "run_config.json").read_text(encoding="utf-8"))
     assert config["feature_version"] == "w3-v1"
     assert config["seed"] == 42
+
+
+def test_full_sample_training_and_2000_flag(tmp_path: Path):
+    """全样本模型：小样本上跑通流程，并如实返回是否达到 2000 条。"""
+    clean_path = tmp_path / "clean.csv"
+    _tiny_clean_frame().to_csv(clean_path, encoding="utf-8-sig", index=False)
+
+    report = run_full_sample(
+        clean_path=clean_path,
+        artifact_dir=tmp_path / "artifacts",
+        report_dir=tmp_path / "reports",
+    )
+    assert report["rows_total"] == 60
+    assert report["meets_2000_target"] is False
+    assert len(report["metrics"]) == 2
+    assert (tmp_path / "reports" / "full_sample_metrics.json").exists()
+    assert (tmp_path / "artifacts" / "full_sample_predictions.csv").exists()

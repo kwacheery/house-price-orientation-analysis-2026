@@ -14,6 +14,7 @@ from web.backend.app import (
     PredictRequest,
     model_importance,
     model_metrics,
+    model_predictions,
     orientation,
     overview,
     predict,
@@ -61,6 +62,14 @@ def test_model_endpoints():
     assert importance["available"] is True
     assert len(importance["features"]) <= 15
     assert importance["features"][0]["importance_mean"] >= 0
+
+
+def test_model_predictions_endpoint_returns_scatter_points():
+    data = model_predictions()
+    assert data["available"] is True
+    assert data["model"] == "hist_gb"
+    assert len(data["points"]) > 0
+    assert set(data["points"][0]) == {"actual", "predicted"}
 
 
 def test_predict_vector_matches_training_columns():
@@ -113,7 +122,10 @@ def test_effective_ridge_coefficients_are_aligned():
 def test_static_export_writes_all_files(tmp_path: Path, monkeypatch):
     monkeypatch.setattr(export_static, "OUTPUT_DIR", tmp_path)
     outputs = export_static.export_all()
-    assert set(outputs) == {"overview", "preprocessing", "orientation", "metrics", "importance", "static_model"}
+    assert set(outputs) == {
+        "overview", "preprocessing", "orientation", "metrics", "importance",
+        "predictions", "static_model",
+    }
     for name, path in outputs.items():
         assert Path(path).exists()
         payload = json.loads(Path(path).read_text(encoding="utf-8"))

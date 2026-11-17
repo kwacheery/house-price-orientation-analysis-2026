@@ -2,7 +2,7 @@
 
 广州二手房 · 3 人组 · 《数据预处理》课程项目
 
-**当前状态：W0–W7 全部完成。W1 采集 3326 条；W2 清洗 3302 条；W3 主样本 1251 条 / 40 特征；W4/W5 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，朝向溢价控制混杂后不显著；W6/W7 Web 双形态完成——本地 FastAPI 版 + GitHub Pages 静态版，浅色拟物风格、磁吸导航与按钮，50 项测试全部通过。下一步为最终报告整合与答辩。**
+**当前状态：W0–W7 全部完成，并已按考核大纲补齐高危项与小缺口。全样本建模 3297 条（≥2000 达标），主样本 1251 条仍为广州主分析；新增 MSE、区域均价偏离度分析、相关性矩阵、真实值 vs 预测值散点图、数据库建表脚本与配置模板；报告草稿已成稿。52 项测试全部通过。**
 
 ## 先看这里
 
@@ -91,17 +91,30 @@
 | 本地动态版 | `python scripts/run_web.py` → http://127.0.0.1:8000 | `/api/*` 实时读取真实产物 | 答辩主用，含 POST 预测 |
 | Pages 静态版 | https://kwacheery.github.io/house-price-orientation-analysis-2026/ | `web/frontend/data/*.json` | 在线预览/备份，浏览器用 Ridge 系数预测 |
 
-- 五个区块：数据概况、预处理对比、朝向分析、模型结果、价格预测；12 张 ECharts 图表全部来自真实数据。
+- 五个区块：数据概况、预处理对比、朝向分析、模型结果、价格预测；13 张 ECharts 图表全部来自真实数据（含真实值 vs 预测值散点图）。
 - 视觉：浅色拟物（neumorphism）风格、柔和双向阴影与内凹输入框；导航胶囊与按钮带**磁吸吸附动画**，滚动区块 `scroll-snap` 吸附。
 - 双形态共用同一份计算函数（`web/backend/app.py` 接口 → `export_static.py` 导出），数字一致；两套预测分别为 FastAPI Ridge 与静态 Ridge 系数，已实测同一房源输出一致。
 - ECharts 已本地化到 `web/frontend/assets/echarts.min.js`，离线也能出图；静态 JSON 共约 25 KB，无 `NaN` 非法值。
+
+## 大纲对照补齐（2026-11-17）
+
+| 大纲条目 | 补齐措施 |
+|---|---|
+| 4.3 建模数据 ≥2000 条 | 新增 `models/full_sample.py`：全部 `model_keep=1` **3297 条**（34 城、含城市/来源固定效应）训练，测试 RMSE 12069 元/㎡、R²=0.695；广州 1251 条仍作主结论 |
+| 4.2.2 报告门槛 | `reports/project_report.md` 草稿：8 章节 + AI 声明 + 三人贡献 + 仓库/Pages 链接，待排版为 10–15 页 PDF |
+| 提交清单：建表脚本 | `data/db/schema.sql`（raw/clean/features/model_runs 四表） |
+| 4.6 真实值 vs 预测值散点图 | Web 模型区块新增第 13 张图，数据来自 `/api/model/predictions` 与静态 `predictions.json` |
+| 4.5 评估指标 MSE | `compute_metrics` 增加 `mse_log` / `mse_yuan` |
+| 4.5 区域均价偏离度 | `reports/district_price_gap.csv`（分析特征，不入模以避免目标泄漏）+ 相关性矩阵 `feature_correlation.csv` |
+| 4.3 配置化 | `config/settings.example.yaml`（URL/页数/延迟/城市可配） |
+| 4.4 标准化说明 | 特征字典与报告说明 Z-Score 只用于线性模型、只在训练集 fit |
 
 ## 数据与分工
 
 - **城市**：主分析广州，按天河、越秀、海珠、荔湾、白云、黄埔、番禺、花都、南沙、从化、增城 11 区拆分采集；链家/贝壳另取 34 个城市首页，用于跨城市稳健性检验。
 - **站点**：A 房天下广州（区县翻页，1274 条）；B 链家多城市首页（1032 条）；C 贝壳多城市首页（1020 条）。链家/贝壳翻页会触发登录或人机验证，因此只取城市首页。
 - **数据量**：已采集去重后 3326 条，三站均 ≥1000 条；全组目标 ≥3000 条已达成。
-- **分工**：每人一个不同站点，同时交叉负责预处理、建模、Web 中的一个模块。
+- **分工**：**姜金武**负责三站采集并人工验证（AI 仅作"更聪明的脚本"辅助，不构成全自动绕过 robots）；**陈胜涛**提供 Web 设计框架；**蒙品华（队长）**负责设计项目框架，并在答辩时讲解技术细节。详见 `docs/PLAN.md` 第 14 节与 `reports/project_report.md`。
 
 ## 目录结构
 
@@ -155,6 +168,7 @@ python -m pipeline.features
 python -m models.train
 python -m models.evaluate
 python -m models.premium
+python -m models.full_sample       # 全样本建模（3297 条，≥2000 达标）
 
 # 7. 导出 GitHub Pages 静态数据（已实现）
 python scripts/export_static.py
