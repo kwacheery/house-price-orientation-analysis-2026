@@ -23,7 +23,8 @@
 | W1 采集 | 完成 | 房天下 1274、链家 1032、贝壳 1020；去重后 3326 条 |
 | W2 清洗 | 完成 | 3326 → 3302 条；`model_keep=1` 3297 条；`clean_version=w2-v1` |
 | W3 特征工程 | 完成 | `w3-v1`；广州房天下主样本 1251 条，训练 1000 / 测试 251，入模特征 40 个；33 项测试全通过 |
-| W4/W5 建模与溢价 | 完成 | 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，较区县均值基线降 25.8%；朝南溢价 +4.1% 但不显著；41 项测试全通过 |
+| W4/W5 建模与溢价 | 完成 | 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，较区县均值基线降 25.8%；朝南溢价 +4.1% 但不显著 |
+| W6/W7 Web 可视化 | 完成 | 本地 FastAPI + Pages 静态版双形态，12 张真实图表、浅色拟物与磁吸交互；静态 JSON 与 API 数字一致；50 项测试全通过 |
 
 W2 已确认的口径：
 
@@ -159,7 +160,7 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 
 要求：
 
-- 当前基线：`pytest` 41 项全部通过（解析 11 + 清洗 14 + 特征 8 + 建模 8）。
+- 当前基线：`pytest` 50 项全部通过（解析 11 + 清洗 14 + 特征 8 + 建模 8 + Web 9）。
 - 新增解析规则 → 补 `tests/test_parse.py`。
 - 新增清洗/特征逻辑 → 补 `tests/test_clean.py` 或 `tests/test_features.py`。
 - 特征工程必须包含防泄漏检查：目标编码/统计量只能从训练集拟合。
@@ -196,12 +197,11 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 - 文件编码统一 UTF-8；不要用系统默认编码写中文文件。
 - 长路径/权限问题优先在项目根目录内操作，不使用系统临时目录存放项目数据。
 
-## 10. 下一步（W6/W7）
+## 10. 下一步（最终交付）
 
-W0–W5 已完成。建模与溢价结论见 `reports/modeling_report.md`、`reports/metrics.json`、`reports/premium.json`。后续：
+W0–W7 全部完成。Web 代码见 `web/`、`models/predict.py`、`scripts/{export_static,run_web,run_pipeline}.py`；双形态数字一致（实测同一房源 44474 元/㎡）。
 
-1. 新建 `web/backend/app.py`（FastAPI）：复用同一份指标/图表计算函数，提供 `/api/overview`、`/api/preprocessing`、`/api/orientation`、`/api/model/metrics`、`/api/model/importance`、`POST /api/predict`；断网/空数据不崩溃。
-2. 新建 `scripts/export_static.py`：导出 `web/frontend/data/*.json`（overview/preprocessing/orientation/metrics/importance/static_model），供 GitHub Pages 静态版使用；两套数字必须一致。
-3. 完善 `web/frontend/`：零构建原生 HTML/CSS/JS + ECharts，`js/config.js` 判断本地/Pages 模式；五个区块（数据概况、预处理对比、朝向分析、模型结果、价格预测）。
-4. 新建 `scripts/run_web.py` 与 `scripts/run_pipeline.py`（清洗→特征→训练→评估一键串联）。
-5. 报告整合：把 `modeling_report.md` 与 W1/W2 报告并入 10–15 页课程报告，补 AI 声明、贡献说明、仓库链接。
+1. 新建 `docs/data_dictionary.md`：原始字段与清洗字段对照。
+2. 整合 10–15 页课程报告：摘要、引言、采集与合规、预处理与特征工程、模型与评估、可视化、总结与展望、参考文献、附录；图表统一编号。
+3. 补 AI 使用声明、三人贡献说明（人—站点—区县—数据量—模块—代码路径）、仓库与 Pages 链接。
+4. 截图与现场系统一致（本地版 + Pages 版），答辩前完整彩排一键流水线：`python scripts/run_pipeline.py --day 2026-11-10`。

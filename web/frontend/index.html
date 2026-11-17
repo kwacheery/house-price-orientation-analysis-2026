@@ -3,83 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>城市房价预测与朝向溢价分析</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f6f7f9;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --accent: #0f766e;
-      --border: #e5e7eb;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-      line-height: 1.7;
-    }
-    main {
-      width: min(720px, 100%);
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-    }
-    h1 { margin: 0 0 8px; font-size: 24px; line-height: 1.4; }
-    .subtitle { margin: 0 0 24px; color: var(--muted); }
-    .badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 999px;
-      background: #ccfbf1;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 600;
-    }
-    ul { padding-left: 20px; }
-    li { margin: 6px 0; }
-    code {
-      padding: 2px 6px;
-      border-radius: 6px;
-      background: #f3f4f6;
-      font-size: 0.9em;
-    }
-    footer {
-      margin-top: 28px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
-    }
-  </style>
+  <title>城市房价预测与朝向溢价分析 · 数据看板</title>
+  <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-  <main>
-    <span class="badge">项目初始化</span>
-    <h1>城市房价预测与朝向溢价分析</h1>
-    <p class="subtitle">广州二手房 · 3 人组 · 《数据预处理》课程项目</p>
+  <div class="app-shell">
 
-    <p>当前为 <strong>GitHub Pages 静态占位页</strong>。完整可视化将在 W7 替换为真实数据图表与预测页面。</p>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong>房价 · 朝向溢价</strong>
+          <small>广州二手房数据看板</small>
+        </div>
+      </div>
+      <nav class="magnet-nav" id="nav" aria-label="区块导航">
+        <span class="nav-indicator" id="navIndicator"></span>
+        <button class="nav-btn magnet is-active" data-target="overview">01 概况</button>
+        <button class="nav-btn magnet" data-target="preprocessing">02 预处理</button>
+        <button class="nav-btn magnet" data-target="orientation">03 朝向</button>
+        <button class="nav-btn magnet" data-target="model">04 模型</button>
+        <button class="nav-btn magnet" data-target="predict">05 预测</button>
+      </nav>
+      <div class="mode-pill" id="modePill"><span class="mode-dot"></span><span id="modeText">检测中…</span></div>
+    </header>
 
-    <ul>
-      <li>主任务：预测房源单价（元/㎡）</li>
-      <li>分析主线：控制面积、区县、楼层、房龄后的朝向溢价</li>
-      <li>本地版：FastAPI + ECharts，答辩主用</li>
-      <li>静态版：预导出 JSON，在线预览/备份</li>
-    </ul>
+    <main class="stage" id="stage">
 
-    <p>计划书与最新进度见仓库 <code>docs/PLAN.md</code>。</p>
+      <!-- 01 数据概况 -->
+      <section class="section" id="overview">
+        <div class="section-head">
+          <div class="eyebrow">01 / DATA OVERVIEW</div>
+          <h1>从 3326 条原始房源开始</h1>
+          <p>三站采集、清洗去重、特征工程，最终得到广州房天下主样本用于建模与溢价分析。</p>
+        </div>
 
-    <footer>静态页面不包含假数据；图表与指标将在真实采集、清洗、建模完成后生成。</footer>
-  </main>
+        <div class="stat-row" id="statRow">
+          <div class="stat-card"><span class="stat-label">原始采集</span><strong class="stat-value" data-stat="raw">—</strong><span class="stat-unit">条</span></div>
+          <div class="stat-card"><span class="stat-label">清洗输出</span><strong class="stat-value" data-stat="clean">—</strong><span class="stat-unit">条</span></div>
+          <div class="stat-card"><span class="stat-label">建模可用</span><strong class="stat-value" data-stat="model_keep">—</strong><span class="stat-unit">条</span></div>
+          <div class="stat-card accent"><span class="stat-label">主样本</span><strong class="stat-value" data-stat="main_sample">—</strong><span class="stat-unit">条</span></div>
+          <div class="stat-card"><span class="stat-label">训练 / 测试</span><strong class="stat-value" data-stat="split">—</strong><span class="stat-unit">条</span></div>
+        </div>
+
+        <div class="chart-grid two">
+          <div class="panel">
+            <div class="panel-head"><h3>站点来源分布</h3><span class="panel-tag">原始层</span></div>
+            <div class="chart" id="chartSources"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>广州各区县样本量</h3><span class="panel-tag">主样本</span></div>
+            <div class="chart" id="chartDistricts"></div>
+          </div>
+        </div>
+        <p class="source-note" id="overviewNote">数据来源：房天下广州、链家/贝壳多城市首页；仅课程学习用途。</p>
+      </section>
+
+      <!-- 02 数据预处理 -->
+      <section class="section" id="preprocessing">
+        <div class="section-head">
+          <div class="eyebrow">02 / PREPROCESSING</div>
+          <h1>清洗不是删数据，而是让缺失可见</h1>
+          <p>类型转换、去重、朝向标准化、单价重算与异常标记逐步留痕；类别缺失统一设为“未知”。</p>
+        </div>
+
+        <div class="chart-grid two">
+          <div class="panel">
+            <div class="panel-head"><h3>清洗各步骤行数</h3><span class="panel-tag">w2-v1</span></div>
+            <div class="chart" id="chartSteps"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>核心字段完整率：清洗前 → 后</h3><span class="panel-tag">%</span></div>
+            <div class="chart" id="chartCompleteness"></div>
+          </div>
+        </div>
+
+        <div class="inset-strip" id="prepStrip">
+          <div><span>异常值标记</span><strong id="prepOutliers">—</strong></div>
+          <div><span>单价偏差 &gt;5%</span><strong id="prepSuspect">—</strong></div>
+          <div><span>别墅标记</span><strong id="prepVillas">—</strong></div>
+          <div><span>跨平台重复</span><strong id="prepCross">—</strong></div>
+        </div>
+      </section>
+
+      <!-- 03 朝向分析 -->
+      <section class="section" id="orientation">
+        <div class="section-head">
+          <div class="eyebrow">03 / ORIENTATION PREMIUM</div>
+          <h1>朝南到底值多少钱？</h1>
+          <p>控制面积、楼层、户型与区县后估计各朝向溢价；点估计与 95% 置信区间同时呈现，跨 0 即报告“未发现显著差异”。</p>
+        </div>
+
+        <div class="chart-grid two">
+          <div class="panel">
+            <div class="panel-head"><h3>各朝向样本量</h3><span class="panel-tag">主样本</span></div>
+            <div class="chart" id="chartOrientationCount"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>朝向溢价（参照：北）</h3><span class="panel-tag">HC3 · 95% CI</span></div>
+            <div class="chart" id="chartPremium"></div>
+          </div>
+        </div>
+
+        <div class="chart-grid two">
+          <div class="panel">
+            <div class="panel-head"><h3>分区县朝南溢价</h3><span class="panel-tag">探索性</span></div>
+            <div class="chart" id="chartDistrictPremium"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>各朝向单价分布</h3><span class="panel-tag">元/㎡</span></div>
+            <div class="chart" id="chartOrientationBox"></div>
+          </div>
+        </div>
+
+        <div class="notice" id="orientationNotice">
+          <span class="notice-icon">i</span>
+          <div><strong id="noticeTitle">结论载入中…</strong><p id="noticeBody"></p></div>
+        </div>
+      </section>
+
+      <!-- 04 模型结果 -->
+      <section class="section" id="model">
+        <div class="section-head">
+          <div class="eyebrow">04 / MODEL RESULTS</div>
+          <h1>预测性能与朝向的增量价值</h1>
+          <p>三个基线、三个候选模型，5 折交叉验证只在训练集调参；指标反变换到元/㎡尺度报告。</p>
+        </div>
+
+        <div class="kpi-row" id="kpiRow">
+          <div class="kpi-card"><span>最优模型</span><strong id="kpiBest">—</strong></div>
+          <div class="kpi-card"><span>测试 RMSE</span><strong id="kpiRmse">—</strong><small>元/㎡</small></div>
+          <div class="kpi-card"><span>测试 R²</span><strong id="kpiR2">—</strong></div>
+          <div class="kpi-card"><span>较区县均值降幅</span><strong id="kpiDrop">—</strong></div>
+        </div>
+
+        <div class="chart-grid two">
+          <div class="panel">
+            <div class="panel-head"><h3>模型对比</h3><span class="panel-tag">测试集</span></div>
+            <div class="chart" id="chartModels"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>特征重要性 Top 12</h3><span class="panel-tag">permutation</span></div>
+            <div class="chart" id="chartImportance"></div>
+          </div>
+        </div>
+
+        <div class="chart-grid two">
+          <div class="panel">
+            <div class="panel-head"><h3>朝向消融实验</h3><span class="panel-tag">ΔR²</span></div>
+            <div class="chart" id="chartAblation"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>剔除敏感性</h3><span class="panel-tag">Ridge RMSE</span></div>
+            <div class="chart" id="chartSensitivity"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 交互预测 -->
+      <section class="section" id="predict">
+        <div class="section-head">
+          <div class="eyebrow">05 / PRICE PREDICTOR</div>
+          <h1>试一套房源</h1>
+          <p>输入区县、面积、朝向与楼层，即时估算单价。本地版调用 FastAPI，静态版用导出的 Ridge 系数在浏览器计算。</p>
+        </div>
+
+        <div class="predict-layout">
+          <form class="panel form-panel" id="predictForm">
+            <div class="panel-head"><h3>房源信息</h3><span class="panel-tag" id="predictTag">Ridge</span></div>
+            <label class="field">
+              <span>区县</span>
+              <select name="district" id="inDistrict"></select>
+            </label>
+            <label class="field">
+              <span>建筑面积（㎡）</span>
+              <input type="number" name="area" id="inArea" value="90" min="10" max="1000" step="1">
+            </label>
+            <div class="field-row">
+              <label class="field">
+                <span>朝向</span>
+                <select name="orientation" id="inOrientation"></select>
+              </label>
+              <label class="field">
+                <span>楼层</span>
+                <select name="floor_level" id="inFloor"></select>
+              </label>
+            </div>
+            <div class="field-row">
+              <label class="field">
+                <span>室数</span>
+                <input type="number" name="rooms" value="3" min="0" max="10" step="1">
+              </label>
+              <label class="field">
+                <span>厅数</span>
+                <input type="number" name="halls" value="2" min="0" max="10" step="1">
+              </label>
+            </div>
+            <label class="field">
+              <span>总层数</span>
+              <input type="number" name="total_floors" value="18" min="1" max="200" step="1">
+            </label>
+            <button type="submit" class="primary-btn magnet" id="predictBtn">
+              <span>估算单价</span><span class="btn-arrow">→</span>
+            </button>
+            <p class="form-hint" id="formHint">模型为线性可解释版本，预测值仅供演示参考。</p>
+          </form>
+
+          <div class="panel result-panel">
+            <div class="panel-head"><h3>估算结果</h3><span class="panel-tag">元/㎡</span></div>
+            <div class="result-body">
+              <div class="result-orbit"><span class="orbit-ring"></span><span class="orbit-ring two"></span></div>
+              <div class="result-value" id="resultValue">—</div>
+              <div class="result-caption" id="resultCaption">等待输入</div>
+              <div class="result-chip" id="resultChip">Ridge · log 目标反变换</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <span>数据：房天下 / 链家 / 贝壳公开房源 · 仅课程学习用途</span>
+      <span id="footerStatus">本地动态版 / 静态演示版自动切换</span>
+    </footer>
+  </div>
+
+  <script src="./assets/echarts.min.js"></script>
+  <script src="./js/config.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # 项目结构说明
 
-> 适用版本：W5 完成（2026-11-17）。  
+> 适用版本：W7 完成（2026-11-17）。  
 > 维护规则：目录、模块职责、数据流或入口命令发生变化时，同步更新本文件与根目录 [`AGENTS.md`](../AGENTS.md)。
 
 ## 1. 项目一句话
@@ -10,7 +10,7 @@
 - 主分析城市：广州（11 个行政区）。
 - 主分析站点：房天下广州（`fang`）。
 - 稳健性检验：链家、贝壳多城市首页数据，仅使用 `city` 字段，不做事后区县映射。
-- 当前阶段：W0–W5 已完成；W6/W7 Web 可视化（FastAPI + Pages 静态导出）待实现。
+- 当前阶段：W0–W7 全部完成；剩余工作为报告整合与答辩材料。
 
 ## 2. 目录树（当前实际状态）
 
@@ -59,24 +59,36 @@
 │   ├── train.py                  # W4 基线 + 主模型 + 消融 + 敏感性
 │   ├── evaluate.py               # W5 指标汇总、分组误差、特征重要性、图表
 │   ├── premium.py                # W5 朝向溢价、bootstrap、异质性、跨城市
+│   ├── predict.py                # W6 表单输入 → 40 维特征映射（双形态共用）
 │   └── artifacts/                # 模型产物（不入库）
 ├── web/
-│   ├── backend/                  # FastAPI 预留（当前仅 .gitkeep）
+│   ├── __init__.py
+│   ├── backend/
+│   │   ├── __init__.py
+│   │   └── app.py                # W6 FastAPI 接口 + 静态托管
 │   └── frontend/
-│       ├── index.html            # 零构建静态页骨架
-│       ├── assets/               # CSS/ECharts 预留
-│       ├── js/                   # 本地/Pages 模式判断预留
-│       └── data/                 # 静态导出 JSON 预留
+│       ├── index.html            # 零构建单页：五个区块
+│       ├── assets/
+│       │   ├── style.css         # 浅色拟物（neumorphism）样式
+│       │   └── echarts.min.js    # 本地 ECharts（离线可用）
+│       ├── js/
+│       │   ├── config.js         # 本地/Pages 模式判断与统一加载
+│       │   └── app.js            # 图表、磁吸交互、双形态预测
+│       └── data/                 # W7 静态导出 JSON（6 个，入库）
 ├── scripts/                      # 可执行脚本
 │   ├── check_env.py              # W0 环境自检
 │   ├── pilot_w1.py               # W1 采集与字段完整率报告
 │   ├── make_samples.py           # 从 raw 生成脱敏样本
-│   └── plot_preprocessing.py     # W2 缺失值/异常值图表
+│   ├── plot_preprocessing.py     # W2 缺失值/异常值图表
+│   ├── export_static.py          # W7 导出 Pages JSON
+│   ├── run_web.py                # W6 启动 FastAPI
+│   └── run_pipeline.py           # 清洗→特征→训练→评估→导出一键串联
 ├── tests/
 │   ├── test_parse.py             # 解析、数字提取、阻断识别
 │   ├── test_clean.py             # 清洗、区县补全、去重、特征标记
 │   ├── test_features.py          # W3 编码、分层划分、无泄漏检查
-│   └── test_models.py            # W4/W5 基线、指标、设计矩阵、训练冒烟测试
+│   ├── test_models.py            # W4/W5 基线、指标、设计矩阵、训练冒烟测试
+│   └── test_web.py               # W6/W7 接口、静态导出、预测映射与 NaN 回归
 ├── notebooks/                    # 探索性分析预留
 ├── logs/                         # 采集日志（不入库）
 └── reports/                      # 可读报告、JSON/CSV 汇总、图表
@@ -126,8 +138,21 @@
 | `train.py` | 三个基线 + Ridge/RF/HistGB（5 折 CV 调参）+ 朝向消融 + 别墅/异常值敏感性 | 已完成 |
 | `evaluate.py` | 指标汇总、分区县/价格段/朝向分组误差、permutation importance、图表 | 已完成 |
 | `premium.py` | 朝向溢价（参照组北、HC3、bootstrap）+ 分区县异质性 + 跨城市稳健性 | 已完成 |
+| `predict.py` | 表单输入映射为 40 维特征、Ridge 系数折算，供本地与静态版共用 | 已完成 |
 
-### 3.4 `scripts/` 入口脚本
+### 3.4 `web/` 展示层
+
+| 文件 | 职责 | 状态 |
+|---|---|---|
+| `backend/app.py` | FastAPI 六个接口 + 静态文件托管 + 空数据兜底 | 已完成 |
+| `frontend/index.html` | 五个区块单页（概况/预处理/朝向/模型/预测） | 已完成 |
+| `frontend/assets/style.css` | 浅色拟物风格、磁吸与区块吸附动画样式 | 已完成 |
+| `frontend/assets/echarts.min.js` | 本地 ECharts 5.6，离线可用 | 已完成 |
+| `frontend/js/config.js` | 本地/Pages 模式判断与统一数据加载 | 已完成 |
+| `frontend/js/app.js` | 12 张图表、磁吸交互、双形态预测 | 已完成 |
+| `frontend/data/*.json` | 六个静态数据文件（约 25 KB） | 已生成 |
+
+### 3.5 `scripts/` 入口脚本
 
 | 脚本 | 作用 | 状态 |
 |---|---|---|
@@ -139,12 +164,12 @@
 | `export_static.py` | 导出 Pages 静态 JSON | 待实现 |
 | `run_web.py` | 启动本地 FastAPI | 待实现 |
 
-### 3.5 其他目录
+### 3.6 其他目录
 
 | 目录 | 用途 | 提交策略 |
 |---|---|---|
 | `docs/` | 计划书、结构说明、W3 特征字典；后续补 `data_dictionary.md` | 提交 |
-| `tests/` | 解析、清洗、W3 特征与 W4/W5 建模单测（41 项通过） | 提交 |
+| `tests/` | 解析、清洗、特征、建模与 Web 单测（50 项通过） | 提交 |
 | `reports/` | 报告、汇总 JSON/CSV、图表 | 提交最新版本 |
 | `data/samples/` | 每站 60 条脱敏样本 | 提交 |
 | `web/` | 本地动态版 + Pages 静态版 | 提交源码与静态数据 |
@@ -180,8 +205,12 @@ pipeline/features.py（W3, w3-v1）
 models/train.py → evaluate.py → premium.py（W4/W5，已完成）
    ├── models/artifacts/*.joblib + *.csv          # 不入库
    ├── reports/metrics.json / premium.json / modeling_report.md
-   ├── reports/figures/*                          # 真实 vs 预测、重要性、消融、溢价
-   └── web/frontend/data/*.json                   # W7 静态导出，待实现
+   └── reports/figures/*                          # 真实 vs 预测、重要性、消融、溢价
+    │
+    ▼
+models/predict.py + web/backend/app.py（W6/W7，已完成）
+   ├── /api/*                → 本地 FastAPI 版（答辩主用，POST 预测）
+   └── scripts/export_static.py → web/frontend/data/*.json（Pages 静态版，Ridge JS 预测）
 ```
 
 ## 5. 数据分层与命名
@@ -296,9 +325,16 @@ reports/{metrics.json,premium.json,modeling_report.md,orientation_premium.csv,..
 .\.venv\Scripts\python.exe -m models.evaluate
 .\.venv\Scripts\python.exe -m models.premium
 
+# W6/W7 Web：导出静态数据 + 启动本地版
+.\.venv\Scripts\python.exe scripts\export_static.py
+.\.venv\Scripts\python.exe scripts\run_web.py
+
+# 一键流水线（清洗→特征→训练→评估→导出，不含采集）
+.\.venv\Scripts\python.exe scripts\run_pipeline.py --day 2026-11-10
+
 # 测试与语法检查
 .\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m compileall crawler pipeline scripts models tests
+.\.venv\Scripts\python.exe -m compileall crawler pipeline models scripts tests web
 ```
 
 ## 8. 新增代码放置约定
@@ -314,19 +350,20 @@ reports/{metrics.json,premium.json,modeling_report.md,orientation_premium.csv,..
 | Web API | `web/backend/app.py` |
 | 前端 | `web/frontend/`，零构建，不引入 Node.js |
 
-## 9. 当前缺口与 W6/W7 待办
+## 9. 当前缺口与最终交付待办
 
-已完成（W3–W5）：
+已完成（W3–W7）：
 
 - [x] `pipeline/features.py`、`tests/test_features.py`、`docs/feature_dictionary.md`。
 - [x] `data/processed/features.csv`、`train.csv`、`test.csv`、`feature_meta.json`。
 - [x] 主样本口径：广州房天下 1251 条；别墅与异常值保留、只做标记。
-- [x] `models/{common,train,evaluate,premium}.py`、`tests/test_models.py`：基线、主模型、消融、敏感性、朝向溢价与置信区间。
+- [x] `models/{common,train,evaluate,premium,predict}.py`、`tests/test_models.py`：基线、主模型、消融、敏感性、朝向溢价与置信区间。
 - [x] 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡；朝向溢价控制混杂后不显著（如实报告）。
+- [x] `web/backend/app.py`、`web/frontend/`、`scripts/{export_static,run_web,run_pipeline}.py`、`tests/test_web.py`：本地/Pages 双形态 Web，12 张真实图表、浅色拟物与磁吸交互。
+- [x] 静态 JSON 无 `NaN` 非法值；两套预测同一房源输出一致（44474 元/㎡）。
 
 待办：
 
 - [ ] `docs/data_dictionary.md`：原始字段与清洗字段对照。
-- [ ] `scripts/run_pipeline.py`：清洗 → 特征 → 训练 → 评估一键串联。
-- [ ] `web/backend/app.py` 与静态数据导出。
+- [ ] 最终报告（10–15 页）：整合 W1/W2 报告、建模简报、Web 截图，补 AI 声明与贡献说明。
 - [x] 房龄/装修在主样本中全缺，已在 `reports/modeling_report.md` 作为数据源局限性说明；多城市样本仅做稳健性检验。

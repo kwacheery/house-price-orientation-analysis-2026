@@ -2,7 +2,7 @@
 
 广州二手房 · 3 人组 · 《数据预处理》课程项目
 
-**当前状态：W0–W5 已完成。W1 采集 3326 条；W2 清洗输出 3302 条（`model_keep=1` 3297 条）；W3 特征工程主样本 1251 条、训练 1000 / 测试 251、入模特征 40 个；W4/W5 建模与朝向溢价完成——最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，较区县均值基线降 25.8%；朝向溢价因控制混杂后不显著。下一步进入 W6/W7 Web 可视化。**
+**当前状态：W0–W7 全部完成。W1 采集 3326 条；W2 清洗 3302 条；W3 主样本 1251 条 / 40 特征；W4/W5 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，朝向溢价控制混杂后不显著；W6/W7 Web 双形态完成——本地 FastAPI 版 + GitHub Pages 静态版，浅色拟物风格、磁吸导航与按钮，50 项测试全部通过。下一步为最终报告整合与答辩。**
 
 ## 先看这里
 
@@ -84,6 +84,18 @@
 - 模型产物：`models/artifacts/`（不入库）：`model_*.joblib`、`predictions.csv`、`cv_results.csv`、`model_metrics.csv`、`ablation.csv`、`sensitivity.csv`、`feature_importance.csv`、`run_config.json`。
 - 报告产物：`reports/metrics.json`、`reports/modeling_report.md`、`reports/premium.json`、`reports/orientation_premium.csv`、`reports/district_premium.csv`、`reports/cross_city_premium.csv`、图表见 `reports/figures/`。
 
+## W6/W7 Web 可视化速览
+
+| 形态 | 入口 | 数据 | 用途 |
+|---|---|---|---|
+| 本地动态版 | `python scripts/run_web.py` → http://127.0.0.1:8000 | `/api/*` 实时读取真实产物 | 答辩主用，含 POST 预测 |
+| Pages 静态版 | https://kwacheery.github.io/house-price-orientation-analysis-2026/ | `web/frontend/data/*.json` | 在线预览/备份，浏览器用 Ridge 系数预测 |
+
+- 五个区块：数据概况、预处理对比、朝向分析、模型结果、价格预测；12 张 ECharts 图表全部来自真实数据。
+- 视觉：浅色拟物（neumorphism）风格、柔和双向阴影与内凹输入框；导航胶囊与按钮带**磁吸吸附动画**，滚动区块 `scroll-snap` 吸附。
+- 双形态共用同一份计算函数（`web/backend/app.py` 接口 → `export_static.py` 导出），数字一致；两套预测分别为 FastAPI Ridge 与静态 Ridge 系数，已实测同一房源输出一致。
+- ECharts 已本地化到 `web/frontend/assets/echarts.min.js`，离线也能出图；静态 JSON 共约 25 KB，无 `NaN` 非法值。
+
 ## 数据与分工
 
 - **城市**：主分析广州，按天河、越秀、海珠、荔湾、白云、黄埔、番禺、花都、南沙、从化、增城 11 区拆分采集；链家/贝壳另取 34 个城市首页，用于跨城市稳健性检验。
@@ -144,11 +156,14 @@ python -m models.train
 python -m models.evaluate
 python -m models.premium
 
-# 7. 导出 GitHub Pages 静态数据（待实现）
-# python scripts/export_static.py
+# 7. 导出 GitHub Pages 静态数据（已实现）
+python scripts/export_static.py
 
-# 8. 启动本地 Web（待实现）
-# python scripts/run_web.py
+# 8. 启动本地 Web（已实现）
+python scripts/run_web.py
+
+# 9. 一键流水线：清洗 → 特征 → 训练 → 评估 → 导出
+python scripts/run_pipeline.py --day 2026-11-10
 ```
 
 > 采集依赖网络与站点状态，不放进“一键全链路”默认流程；W1/W2/W3 均可基于 `data/raw/` 现有快照复现。
