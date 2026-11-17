@@ -1,6 +1,6 @@
 # 项目结构说明
 
-> 适用版本：W3 完成（2026-11-17）。  
+> 适用版本：W5 完成（2026-11-17）。  
 > 维护规则：目录、模块职责、数据流或入口命令发生变化时，同步更新本文件与根目录 [`AGENTS.md`](../AGENTS.md)。
 
 ## 1. 项目一句话
@@ -10,7 +10,7 @@
 - 主分析城市：广州（11 个行政区）。
 - 主分析站点：房天下广州（`fang`）。
 - 稳健性检验：链家、贝壳多城市首页数据，仅使用 `city` 字段，不做事后区县映射。
-- 当前阶段：W0 环境、W1 采集、W2 清洗、W3 特征工程已完成；W4 建模与朝向溢价分析待实现。
+- 当前阶段：W0–W5 已完成；W6/W7 Web 可视化（FastAPI + Pages 静态导出）待实现。
 
 ## 2. 目录树（当前实际状态）
 
@@ -54,7 +54,12 @@
 │   │   └── README.md
 │   └── db/                       # SQLite 预留目录（当前仅 .gitkeep）
 ├── models/
-│   └── artifacts/                # 模型产物（不入库，当前仅 .gitkeep）
+│   ├── __init__.py
+│   ├── common.py                 # 共享工具：读取、特征列、指标、溢价换算
+│   ├── train.py                  # W4 基线 + 主模型 + 消融 + 敏感性
+│   ├── evaluate.py               # W5 指标汇总、分组误差、特征重要性、图表
+│   ├── premium.py                # W5 朝向溢价、bootstrap、异质性、跨城市
+│   └── artifacts/                # 模型产物（不入库）
 ├── web/
 │   ├── backend/                  # FastAPI 预留（当前仅 .gitkeep）
 │   └── frontend/
@@ -70,7 +75,8 @@
 ├── tests/
 │   ├── test_parse.py             # 解析、数字提取、阻断识别
 │   ├── test_clean.py             # 清洗、区县补全、去重、特征标记
-│   └── test_features.py          # W3 编码、分层划分、无泄漏检查
+│   ├── test_features.py          # W3 编码、分层划分、无泄漏检查
+│   └── test_models.py            # W4/W5 基线、指标、设计矩阵、训练冒烟测试
 ├── notebooks/                    # 探索性分析预留
 ├── logs/                         # 采集日志（不入库）
 └── reports/                      # 可读报告、JSON/CSV 汇总、图表
@@ -80,11 +86,15 @@
     ├── preprocessing_report.md
     ├── preprocessing_summary.csv
     ├── preprocessing_summary.json
+    ├── metrics.json / premium.json
+    ├── modeling_report.md
+    ├── orientation_premium.csv / district_premium.csv / cross_city_premium.csv
     ├── crawl_fang / lianjia / beike 统计与补充记录
     ├── env_check.json
     └── figures/
-        ├── missing_before_after.png
-        └── outlier_boxplot.png
+        ├── missing_before_after.png / outlier_boxplot.png
+        ├── true_vs_predicted.png / feature_importance.png / ablation.png
+        └── orientation_premium.png
 ```
 
 ## 3. 模块职责
@@ -108,7 +118,16 @@
 | `features.py` | 广州房天下主样本筛选、朝向/面积衍生、One-Hot/序号/频次编码、按区县分层划分、防泄漏 | 已完成（`w3-v1`） |
 | `build_dataset.py` | raw → clean → features 一键构建 | 待实现 |
 
-### 3.3 `scripts/` 入口脚本
+### 3.3 `models/` 建模层
+
+| 文件 | 职责 | 状态 |
+|---|---|---|
+| `common.py` | 数据读取、特征列识别、log/元/㎡双尺度指标、溢价换算 | 已完成 |
+| `train.py` | 三个基线 + Ridge/RF/HistGB（5 折 CV 调参）+ 朝向消融 + 别墅/异常值敏感性 | 已完成 |
+| `evaluate.py` | 指标汇总、分区县/价格段/朝向分组误差、permutation importance、图表 | 已完成 |
+| `premium.py` | 朝向溢价（参照组北、HC3、bootstrap）+ 分区县异质性 + 跨城市稳健性 | 已完成 |
+
+### 3.4 `scripts/` 入口脚本
 
 | 脚本 | 作用 | 状态 |
 |---|---|---|
@@ -120,12 +139,12 @@
 | `export_static.py` | 导出 Pages 静态 JSON | 待实现 |
 | `run_web.py` | 启动本地 FastAPI | 待实现 |
 
-### 3.4 其他目录
+### 3.5 其他目录
 
 | 目录 | 用途 | 提交策略 |
 |---|---|---|
 | `docs/` | 计划书、结构说明、W3 特征字典；后续补 `data_dictionary.md` | 提交 |
-| `tests/` | 解析、清洗与 W3 特征单测（33 项通过） | 提交 |
+| `tests/` | 解析、清洗、W3 特征与 W4/W5 建模单测（41 项通过） | 提交 |
 | `reports/` | 报告、汇总 JSON/CSV、图表 | 提交最新版本 |
 | `data/samples/` | 每站 60 条脱敏样本 | 提交 |
 | `web/` | 本地动态版 + Pages 静态版 | 提交源码与静态数据 |
@@ -158,10 +177,11 @@ pipeline/features.py（W3, w3-v1）
    └── docs/feature_dictionary.md
    │
    ▼
-models/train.py → evaluate.py → premium.py（W4/W5）
-   ├── models/artifacts/*.joblib                  # 不入库
-   ├── reports/figures/*
-   └── web/frontend/data/*.json                   # Pages 静态数据
+models/train.py → evaluate.py → premium.py（W4/W5，已完成）
+   ├── models/artifacts/*.joblib + *.csv          # 不入库
+   ├── reports/metrics.json / premium.json / modeling_report.md
+   ├── reports/figures/*                          # 真实 vs 预测、重要性、消融、溢价
+   └── web/frontend/data/*.json                   # W7 静态导出，待实现
 ```
 
 ## 5. 数据分层与命名
@@ -220,8 +240,17 @@ data/processed/test.csv           # 251 行，列结构与 train 一致
 data/processed/feature_meta.json  # 版本、种子、划分索引、编码器、入模列
 ```
 
-主样本口径：广州 + 房天下 + `model_keep=1`；别墅与异常值保留、只做标记；`elevator` 不入模。
-W4/W5 计划新增 `models/artifacts/*.joblib`。特征口径见 `docs/feature_dictionary.md`。
+主样本口径：广州 + 房天下 + `model_keep=1`；别墅与异常值保留、只做标记；`elevator` 不入模。特征口径见 `docs/feature_dictionary.md`。
+
+W4/W5 已生成（默认不入库）：
+
+```text
+models/artifacts/model_*.joblib          # 三个主模型
+models/artifacts/predictions.csv         # 各模型训练/测试预测
+models/artifacts/{cv_results,model_metrics,ablation,sensitivity,feature_importance,grouped_errors}.csv
+models/artifacts/run_config.json
+reports/{metrics.json,premium.json,modeling_report.md,orientation_premium.csv,...}
+```
 
 ## 6. 提交与忽略规则
 
@@ -262,9 +291,14 @@ W4/W5 计划新增 `models/artifacts/*.joblib`。特征口径见 `docs/feature_d
 # W3 特征工程（生成 features/train/test + feature_meta.json）
 .\.venv\Scripts\python.exe -m pipeline.features
 
+# W4/W5 训练、评估、朝向溢价
+.\.venv\Scripts\python.exe -m models.train
+.\.venv\Scripts\python.exe -m models.evaluate
+.\.venv\Scripts\python.exe -m models.premium
+
 # 测试与语法检查
 .\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m compileall crawler pipeline scripts tests
+.\.venv\Scripts\python.exe -m compileall crawler pipeline scripts models tests
 ```
 
 ## 8. 新增代码放置约定
@@ -280,18 +314,19 @@ W4/W5 计划新增 `models/artifacts/*.joblib`。特征口径见 `docs/feature_d
 | Web API | `web/backend/app.py` |
 | 前端 | `web/frontend/`，零构建，不引入 Node.js |
 
-## 9. 当前缺口与 W4/W5 待办
+## 9. 当前缺口与 W6/W7 待办
 
-已完成（W3）：
+已完成（W3–W5）：
 
 - [x] `pipeline/features.py`、`tests/test_features.py`、`docs/feature_dictionary.md`。
 - [x] `data/processed/features.csv`、`train.csv`、`test.csv`、`feature_meta.json`。
-- [x] 主模型样本口径：广州房天下 1251 条；别墅与异常值**保留、只做标记**，供敏感性对比。
+- [x] 主样本口径：广州房天下 1251 条；别墅与异常值保留、只做标记。
+- [x] `models/{common,train,evaluate,premium}.py`、`tests/test_models.py`：基线、主模型、消融、敏感性、朝向溢价与置信区间。
+- [x] 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡；朝向溢价控制混杂后不显著（如实报告）。
 
 待办：
 
 - [ ] `docs/data_dictionary.md`：原始字段与清洗字段对照。
-- [ ] `models/train.py`、`models/evaluate.py`、`models/premium.py`：基线、主模型、消融、朝向溢价与置信区间。
 - [ ] `scripts/run_pipeline.py`：清洗 → 特征 → 训练 → 评估一键串联。
 - [ ] `web/backend/app.py` 与静态数据导出。
-- [ ] 房龄/装修在主样本中全缺，需在报告中作为数据源局限性说明；必要时用多城市样本做稳健性检验。
+- [x] 房龄/装修在主样本中全缺，已在 `reports/modeling_report.md` 作为数据源局限性说明；多城市样本仅做稳健性检验。

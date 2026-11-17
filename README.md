@@ -2,7 +2,7 @@
 
 广州二手房 · 3 人组 · 《数据预处理》课程项目
 
-**当前状态：W0 环境自检完成（Python 3.14.5 + venv）；W1 采集完成（3326 条）；W2 清洗完成——输出 3302 条、`model_keep=1` 共 3297 条；W3 特征工程完成——广州房天下主样本 1251 条，训练 1000 / 测试 251，入模特征 40 个。下一步进入 W4 建模与朝向溢价分析。**
+**当前状态：W0–W5 已完成。W1 采集 3326 条；W2 清洗输出 3302 条（`model_keep=1` 3297 条）；W3 特征工程主样本 1251 条、训练 1000 / 测试 251、入模特征 40 个；W4/W5 建模与朝向溢价完成——最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，较区县均值基线降 25.8%；朝向溢价因控制混杂后不显著。下一步进入 W6/W7 Web 可视化。**
 
 ## 先看这里
 
@@ -68,6 +68,22 @@
 - 字段说明与口径：[docs/feature_dictionary.md](docs/feature_dictionary.md)
 - 数据局限：房天下列表页不展示建成年份与装修，主模型无法控制房龄/装修，报告中作为局限性说明。
 
+## W4/W5 建模与溢价结果速览
+
+| 指标 | 结果 |
+|---|---|
+| 最优模型 | HistGradientBoosting：测试 RMSE **14106 元/㎡**、MAE 8834、R² **0.710** |
+| 基线对比 | 区县均值 RMSE 19019 → 降幅 **25.8%**（达标 ≥15%）；R² 0.473 → 0.710（达标 ≥0.65） |
+| 候选模型 | Ridge 0.590、RandomForest 0.705、HistGB 0.710（5 折 CV + Grid/RandomizedSearch，仅在训练集） |
+| 朝向溢价 | 以“北”为参照、控制面积/楼层/户型/区县：朝南 **+4.1%**，95% CI [−5.4%, +14.4%]，p=0.413 → **未发现显著溢价** |
+| 检验 | 原始朝向分布 Kruskal-Wallis 显著（p=2.5e−7）；1000 次 bootstrap 与主回归结论一致 |
+| 消融 | 加入朝向特征对 Ridge 无预测增益（ΔR²=−0.0017），如实报告 |
+| 敏感性 | 剔别墅/异常值后 Ridge RMSE 16698 → 12862；主口径保留全部样本并标记 |
+| 跨城市 | 链家/贝壳样本朝南 −1.3%（p=0.80），方向与广州不一致且不显著，仅作稳健性参考 |
+
+- 模型产物：`models/artifacts/`（不入库）：`model_*.joblib`、`predictions.csv`、`cv_results.csv`、`model_metrics.csv`、`ablation.csv`、`sensitivity.csv`、`feature_importance.csv`、`run_config.json`。
+- 报告产物：`reports/metrics.json`、`reports/modeling_report.md`、`reports/premium.json`、`reports/orientation_premium.csv`、`reports/district_premium.csv`、`reports/cross_city_premium.csv`、图表见 `reports/figures/`。
+
 ## 数据与分工
 
 - **城市**：主分析广州，按天河、越秀、海珠、荔湾、白云、黄埔、番禺、花都、南沙、从化、增城 11 区拆分采集；链家/贝壳另取 34 个城市首页，用于跨城市稳健性检验。
@@ -123,14 +139,16 @@ python scripts/plot_preprocessing.py --day 2026-11-10
 # 5. W3 特征工程（已实现）
 python -m pipeline.features
 
-# 6. 训练 + 评估 + 朝向溢价（W4/W5，待实现）
-# python scripts/run_pipeline.py
+# 6. W4/W5 训练 + 评估 + 朝向溢价（已实现）
+python -m models.train
+python -m models.evaluate
+python -m models.premium
 
-# 7. 导出 GitHub Pages 静态数据
-python scripts/export_static.py
+# 7. 导出 GitHub Pages 静态数据（待实现）
+# python scripts/export_static.py
 
-# 8. 启动本地 Web
-python scripts/run_web.py
+# 8. 启动本地 Web（待实现）
+# python scripts/run_web.py
 ```
 
 > 采集依赖网络与站点状态，不放进“一键全链路”默认流程；W1/W2/W3 均可基于 `data/raw/` 现有快照复现。

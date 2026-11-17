@@ -23,7 +23,7 @@
 | W1 采集 | 完成 | 房天下 1274、链家 1032、贝壳 1020；去重后 3326 条 |
 | W2 清洗 | 完成 | 3326 → 3302 条；`model_keep=1` 3297 条；`clean_version=w2-v1` |
 | W3 特征工程 | 完成 | `w3-v1`；广州房天下主样本 1251 条，训练 1000 / 测试 251，入模特征 40 个；33 项测试全通过 |
-| W4/W5 建模与溢价 | 未开始 | 计划见 `docs/PLAN.md` |
+| W4/W5 建模与溢价 | 完成 | 最优 HistGB 测试 R²=0.710、RMSE 14106 元/㎡，较区县均值基线降 25.8%；朝南溢价 +4.1% 但不显著；41 项测试全通过 |
 
 W2 已确认的口径：
 
@@ -159,7 +159,7 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 
 要求：
 
-- 当前基线：`pytest` 33 项全部通过（解析 11 + 清洗 14 + 特征 8）。
+- 当前基线：`pytest` 41 项全部通过（解析 11 + 清洗 14 + 特征 8 + 建模 8）。
 - 新增解析规则 → 补 `tests/test_parse.py`。
 - 新增清洗/特征逻辑 → 补 `tests/test_clean.py` 或 `tests/test_features.py`。
 - 特征工程必须包含防泄漏检查：目标编码/统计量只能从训练集拟合。
@@ -184,6 +184,7 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 | 阶段状态/数据量变化 | `README.md`、`docs/PLAN.md` |
 | 清洗口径变化 | `reports/preprocessing_report.md`、`docs/PLAN.md` 6.x |
 | 新增特征 | `docs/feature_dictionary.md`（W3 已建，新特征需同步补充） |
+| 建模/溢价结果变化 | `reports/modeling_report.md`、`reports/metrics.json`、`docs/PLAN.md` 8.x |
 | 新增原始/清洗字段 | `docs/data_dictionary.md`（待建）、`docs/STRUCTURE.md` |
 | 新增依赖 | `requirements.txt`、`README.md` |
 
@@ -195,15 +196,12 @@ data/samples/{source}_sample.csv             # 脱敏样本，入库
 - 文件编码统一 UTF-8；不要用系统默认编码写中文文件。
 - 长路径/权限问题优先在项目根目录内操作，不使用系统临时目录存放项目数据。
 
-## 10. 下一步（W4/W5）
+## 10. 下一步（W6/W7）
 
-W3 已完成，产物与口径见 `docs/feature_dictionary.md`、`data/processed/feature_meta.json`。后续：
+W0–W5 已完成。建模与溢价结论见 `reports/modeling_report.md`、`reports/metrics.json`、`reports/premium.json`。后续：
 
-1. 新建 `models/train.py`：
-   - 读取 `train.csv` / `test.csv`（`row_id` 关联回 `features.csv` 取区县/小区分组列）。
-   - 基线：全局均值、区县均值、面积单变量回归；主模型：Ridge、RandomForest、HistGradientBoosting。
-   - 统一 Pipeline 封装，超参只在训练集搜索，5 折 CV。
-2. 新建 `models/evaluate.py`：MSE/RMSE/MAE/R²，训练/测试同时报告，反变换到元/㎡；分区县/价格段/朝向分组误差。
-3. 新建 `models/premium.py`：以“北”为参照组估计各朝向系数，`premium=exp(β)−1` + 95% CI；区县/板块异质性、bootstrap、跨城市稳健性检验。
-4. 消融实验：A 不含朝向 / B 含朝向 One-Hot + 二值 / C 加交叉特征，报告 ΔR²、ΔRMSE。
-5. 敏感性对比：剔除 `is_villa=1`、`is_outlier=1` 后重评；房龄/装修全缺作为数据源局限性如实记录。
+1. 新建 `web/backend/app.py`（FastAPI）：复用同一份指标/图表计算函数，提供 `/api/overview`、`/api/preprocessing`、`/api/orientation`、`/api/model/metrics`、`/api/model/importance`、`POST /api/predict`；断网/空数据不崩溃。
+2. 新建 `scripts/export_static.py`：导出 `web/frontend/data/*.json`（overview/preprocessing/orientation/metrics/importance/static_model），供 GitHub Pages 静态版使用；两套数字必须一致。
+3. 完善 `web/frontend/`：零构建原生 HTML/CSS/JS + ECharts，`js/config.js` 判断本地/Pages 模式；五个区块（数据概况、预处理对比、朝向分析、模型结果、价格预测）。
+4. 新建 `scripts/run_web.py` 与 `scripts/run_pipeline.py`（清洗→特征→训练→评估一键串联）。
+5. 报告整合：把 `modeling_report.md` 与 W1/W2 报告并入 10–15 页课程报告，补 AI 声明、贡献说明、仓库链接。

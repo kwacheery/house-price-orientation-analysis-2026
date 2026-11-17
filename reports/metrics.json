@@ -1,0 +1,210 @@
+{
+  "best_model": "hist_gb",
+  "best_test_rmse_yuan": 14105.654050636576,
+  "best_test_r2_yuan": 0.7099417669554273,
+  "district_baseline_rmse_yuan": 19019.016857788316,
+  "rmse_reduction_vs_district": 0.25833947379565575,
+  "model_metrics": [
+    {
+      "model": "baseline_area_only",
+      "log_rmse": 0.6995951085628423,
+      "log_mae": 0.5916817650693846,
+      "r2_log": 0.21681567675994418,
+      "rmse_yuan": 25483.306412917183,
+      "mae_yuan": 17727.039466909337,
+      "r2_yuan": 0.05330454329243439
+    },
+    {
+      "model": "baseline_district_mean",
+      "log_rmse": 0.49695671228387533,
+      "log_mae": 0.38011136067889173,
+      "r2_log": 0.6048085146102351,
+      "rmse_yuan": 19019.016857788316,
+      "mae_yuan": 12016.710138394204,
+      "r2_yuan": 0.4726792426346178
+    },
+    {
+      "model": "baseline_global_mean",
+      "log_rmse": 0.7907530982681699,
+      "log_mae": 0.6755816846837959,
+      "r2_log": -0.0005810223887854349,
+      "rmse_yuan": 27425.317543849895,
+      "mae_yuan": 19881.709972916877,
+      "r2_yuan": -0.09648342213955186
+    },
+    {
+      "model": "hist_gb",
+      "log_rmse": 0.35369894838418636,
+      "log_mae": 0.2641436454030101,
+      "r2_log": 0.7998120214147159,
+      "rmse_yuan": 14105.654050636576,
+      "mae_yuan": 8834.464489502427,
+      "r2_yuan": 0.7099417669554273
+    },
+    {
+      "model": "random_forest",
+      "log_rmse": 0.33734849314791887,
+      "log_mae": 0.25757552625754726,
+      "r2_log": 0.8178924270431663,
+      "rmse_yuan": 14215.545984413866,
+      "mae_yuan": 8722.673115941494,
+      "r2_yuan": 0.7054046893516891
+    },
+    {
+      "model": "ridge",
+      "log_rmse": 0.40800154266846334,
+      "log_mae": 0.3182061904324781,
+      "r2_log": 0.7336246290766091,
+      "rmse_yuan": 16778.87219837855,
+      "mae_yuan": 10505.211768362653,
+      "r2_yuan": 0.5895840100970129
+    }
+  ],
+  "ablation": [
+    {
+      "experiment": "A_无朝向",
+      "feature_count": 25,
+      "log_rmse": 0.39964797170656824,
+      "log_mae": 0.31158308339837765,
+      "r2_log": 0.7444206957904924,
+      "rmse_yuan": 16661.645022841425,
+      "mae_yuan": 10377.986111658744,
+      "r2_yuan": 0.5952987968278844,
+      "delta_r2_vs_A": 0.0,
+      "delta_rmse_vs_A": 0.0,
+      "delta_r2_vs_B": 0.0017472825350994814,
+      "delta_rmse_vs_B": 35.92928020992622
+    },
+    {
+      "experiment": "B_含朝向",
+      "feature_count": 40,
+      "log_rmse": 0.404435751442785,
+      "log_mae": 0.31524986758459844,
+      "r2_log": 0.7382603386551705,
+      "rmse_yuan": 16697.57430305135,
+      "mae_yuan": 10434.185953857426,
+      "r2_yuan": 0.593551514292785,
+      "delta_r2_vs_A": -0.0017472825350994814,
+      "delta_rmse_vs_A": -35.92928020992622,
+      "delta_r2_vs_B": 0.0,
+      "delta_rmse_vs_B": 0.0
+    },
+    {
+      "experiment": "C_朝向加交叉",
+      "feature_count": 42,
+      "log_rmse": 0.40479860850579164,
+      "log_mae": 0.3152482535531028,
+      "r2_log": 0.7377904658038847,
+      "rmse_yuan": 16694.933641889496,
+      "mae_yuan": 10421.518752479593,
+      "r2_yuan": 0.5936800608519841,
+      "delta_r2_vs_A": -0.0016187359759003428,
+      "delta_rmse_vs_A": -33.28861904807127,
+      "delta_r2_vs_B": 0.0001285465591991386,
+      "delta_rmse_vs_B": 2.6406611618549505
+    }
+  ],
+  "sensitivity": [
+    {
+      "scenario": "主样本（全保留）",
+      "train_rows": 1000,
+      "test_rows": 251,
+      "log_rmse": 0.404435751442785,
+      "log_mae": 0.31524986758459844,
+      "r2_log": 0.7382603386551705,
+      "rmse_yuan": 16697.57430305135,
+      "mae_yuan": 10434.185953857426,
+      "r2_yuan": 0.593551514292785
+    },
+    {
+      "scenario": "剔除别墅",
+      "train_rows": 897,
+      "test_rows": 226,
+      "log_rmse": 0.3765029707958223,
+      "log_mae": 0.2969289135103075,
+      "r2_log": 0.7711959205173482,
+      "rmse_yuan": 13985.00835623677,
+      "mae_yuan": 9295.049086341449,
+      "r2_yuan": 0.6571663085109052
+    },
+    {
+      "scenario": "剔除异常值",
+      "train_rows": 945,
+      "test_rows": 236,
+      "log_rmse": 0.3659939745965835,
+      "log_mae": 0.2836384743058837,
+      "r2_log": 0.7747992262908301,
+      "rmse_yuan": 12942.367226926222,
+      "mae_yuan": 8612.708793478985,
+      "r2_yuan": 0.6828452044930563
+    },
+    {
+      "scenario": "两者都剔除",
+      "train_rows": 871,
+      "test_rows": 220,
+      "log_rmse": 0.3664068476567233,
+      "log_mae": 0.2846655858342954,
+      "r2_log": 0.7798876980856364,
+      "rmse_yuan": 12862.3191261419,
+      "mae_yuan": 8629.577026560537,
+      "r2_yuan": 0.6875316586227727
+    }
+  ],
+  "top_features": [
+    {
+      "feature": "district=从化区",
+      "importance_mean": 0.14505688489381544,
+      "importance_std": 0.018469707815253193
+    },
+    {
+      "feature": "area",
+      "importance_mean": 0.14431521182579105,
+      "importance_std": 0.011940415750709008
+    },
+    {
+      "feature": "district=越秀区",
+      "importance_mean": 0.07755241497827098,
+      "importance_std": 0.012396885616168876
+    },
+    {
+      "feature": "district=天河区",
+      "importance_mean": 0.05727042127833311,
+      "importance_std": 0.0077425680312626114
+    },
+    {
+      "feature": "district=增城区",
+      "importance_mean": 0.047267330544245985,
+      "importance_std": 0.0030158307077458382
+    },
+    {
+      "feature": "district=海珠区",
+      "importance_mean": 0.030830960878517406,
+      "importance_std": 0.007896059232032432
+    },
+    {
+      "feature": "community_freq",
+      "importance_mean": 0.027097776749897808,
+      "importance_std": 0.003310715232451945
+    },
+    {
+      "feature": "rooms_missing",
+      "importance_mean": 0.025979270536744415,
+      "importance_std": 0.008883929218037656
+    },
+    {
+      "feature": "plate_freq",
+      "importance_mean": 0.025532328356139285,
+      "importance_std": 0.0036889433474652624
+    },
+    {
+      "feature": "district=花都区",
+      "importance_mean": 0.024519754923114073,
+      "importance_std": 0.0026721701755710882
+    }
+  ],
+  "figures": [
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\figures\\true_vs_predicted.png",
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\figures\\feature_importance.png",
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\figures\\ablation.png"
+  ]
+}

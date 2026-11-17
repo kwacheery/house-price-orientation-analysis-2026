@@ -1,0 +1,34 @@
+{
+  "reference": "北",
+  "control_variables": [
+    "log_area",
+    "floor_ratio",
+    "rooms",
+    "区县固定效应"
+  ],
+  "standard_errors": "HC3",
+  "n": 1251,
+  "r2": 0.6836904156720298,
+  "south_premium": 0.0405054780508074,
+  "south_premium_ci": [
+    -0.05384967941180496,
+    0.1442702351785763
+  ],
+  "south_p_value": 0.4129721538822618,
+  "kruskal_wallis": {
+    "statistic": 38.881345989506116,
+    "p_value": 2.5090730748261755e-07,
+    "groups": 6
+  },
+  "bootstrap_draws": 1000,
+  "districts_reported": 11,
+  "cross_city_rows": 8,
+  "limitation": "房龄与装修在主样本中全缺，未作为控制变量；观察性数据，不做因果断言。",
+  "outputs": [
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\orientation_premium.csv",
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\orientation_bootstrap.csv",
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\district_premium.csv",
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\cross_city_premium.csv",
+    "C:\\Users\\Administrator\\Desktop\\shcoolwork\\shcoolwork\\reports\\figures\\orientation_premium.png"
+  ]
+}
